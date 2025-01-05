@@ -1,0 +1,65 @@
+@use "sass:math";
+
+$inner-width: 1000px;
+$bp-tab: 1000px;
+$bp-sp: 767px;
+$main-color: #1e1d20;
+
+/* --------------------------
+	フォントの設定
+-------------------------- */
+$font-size-px: 16; // 基本フォントサイズ
+$font-size-rem: math.div($font-size-px, 10); // 基本フォントサイズ(rem)
+$font-family: "Noto Serif JP", "ヒラギノ角ゴ ProN",
+			"Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, "ＭＳ Ｐゴシック",
+			"MS PGothic", sans-serif;
+$font-color: #505A5F; // 基本フォントカラー
+$line-height: 1.8; // 行間の設定
+
+
+/* --------------------------
+	レスポンシブ関連
+-------------------------- */
+@mixin max-screen($break-point) {
+  @media screen and (max-width: $break-point) {
+    @content;
+  }
+}
+
+@mixin min-screen($break-point) {
+  @media screen and (min-width: $break-point) {
+    @content;
+  }
+}
+
+@mixin mq-max($break-point) {
+  @media screen and (max-width: $break-point) {
+    @content;
+  }
+}
+
+@mixin mq-min($break-point) {
+  @media screen and (min-width: $break-point) {
+    @content;
+  }
+}
+
+
+
+@function vw-pc($size, $viewport: 1920) {
+  $rate: calc(100 / $viewport);
+
+  @return $rate * $size * 1vw;
+}
+
+@function vw-tab($size, $viewport: 768) {
+  $rate: calc(100 / $viewport);
+
+  @return $rate * $size * 1vw;
+}
+
+@function vw-sp($size, $viewport: 320) {
+  $rate: calc(100 / $viewport);
+
+  @return $rate * $size * 1vw;
+}

@@ -1,0 +1,101 @@
+---
+import FlowText from "../components/FlowText.astro";
+
+interface Props {
+    pageId?: string;
+}
+
+const {pageId} = Astro.props;
+
+// フッターメニューの定義
+const footerMenu = [
+    { label: 'TOP', path: '/' },
+    { label: 'Profile', path: '/profile' },
+    { label: 'Blog', path: '/blog' },
+    { label: 'Work', path: '/work' },
+    { label: 'Contact', path: '/contact' }
+];
+---
+
+<footer class="footer">
+    <div class="l-inner">
+        <div class="footer__content">
+            <nav class="footer__nav">
+                <ul class="footer__menu">
+                    {footerMenu.map((item) => (
+                        <li class="footer__menu-item">
+                            <a 
+                                href={item.path}
+                                class="footer__menu-link"
+                            >
+                                {item.label}
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+            </nav>
+            <p class="footer__copyright">&copy; 2024 My Portfolio. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<style lang="scss">
+    @import '../styles/vars.scss';
+    
+    .footer {
+        background: #3e297b;
+        color: white;
+        padding: 4rem 0;
+
+        &__content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        &__menu {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        &__menu-link {
+            color: white;
+            text-decoration: none;
+            font-size: 1.4rem;
+            transition: opacity 0.3s ease;
+
+            &:hover {
+                opacity: 0.7;
+            }
+        }
+
+        &__copyright {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .footer {
+            padding: 3rem 0;
+
+            &__content {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            &__menu {
+                gap: 2rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            &__menu-link {
+                font-size: 1.2rem;
+            }
+        }
+    }
+</style>

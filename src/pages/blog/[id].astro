@@ -1,0 +1,380 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import BlogSidebar from '../../components/BlogSidebar.astro';
+import { client } from '../../lib/microcms';
+import type { Blog } from '../../lib/microcms';
+import 'prismjs/themes/prism-tomorrow.css';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+
+// Dynamic routes for all blog posts
+export async function getStaticPaths() {
+    // すべてのブログ記事を取得
+    const response = await client.get({
+        endpoint: 'blog',
+    });
+
+    // 各ブログ記事のパスを返す
+    return response.contents.map((blog: Blog) => ({
+        params: {
+            id: blog.id  // URLパラメータとしてblog.idを使用
+        },
+        props: {
+            blog
+        },
+    }));
+}
+
+// プロパティからブログ記事データを取得
+const { id } = Astro.params;
+const blog = await client.get({
+    endpoint: 'blog',
+    contentId: id
+});
+
+const breadcrumbItems = [
+    {
+        label: 'ブログ',
+        href: '/blog'
+    },
+    {
+        label: blog.title
+    }
+];
+---
+
+<Layout 
+    pageId='blog-detail' 
+    title={blog.title} 
+    description={blog.description || ''}
+>
+    <div class="blog-detail">
+        <div class="l-inner">
+            <div class="blog-layout">
+                <main>
+                    <article class="blog-content">
+                        <Breadcrumb items={breadcrumbItems} />
+                        <div class="blog-thumbnail">
+                        {blog.thumbnail && (
+                            <img 
+                                src={blog.thumbnail.url} 
+                                alt={blog.title}
+                                class="blog-thumbnail"
+                            />
+                        )}
+
+                        </div>
+                        <div class="blog-header">
+                            {blog.categories && blog.categories.length > 0 && (
+                                <div class="blog-categories">
+                                    {blog.categories.map((category) => (
+                                        <a href={`/category/${category.slug}`} class="category-label">
+                                            {category.name}
+                                        </a>
+                                    ))}
+                                </div>
+                            )}
+                            <time datetime={blog.publishedAt}>
+                                {new Date(blog.publishedAt).toLocaleDateString('ja-JP', {
+                                    year: 'numeric',
+                                    month: 'long',
+                                    day: 'numeric'
+                                })}
+                            </time>
+                        </div>
+                        <div class="blog-body" set:html={blog.body} />
+                    </article>
+                </main>
+                <BlogSidebar />
+            </div>
+        </div>
+    </div>
+</Layout>
+
+<style lang="scss" is:global>
+    @import '../../styles/vars.scss';
+.blog-detail {
+    padding: 8rem 0;
+    background: #f8f9fa;
+
+    .blog-layout {
+        display: grid;
+        grid-template-columns: 1fr 280px;
+        gap: 4rem;
+
+        @media (max-width: 1024px) {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .blog-content {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        padding: 2.5rem 4rem; 
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
+    }
+
+    .blog-thumbnail {
+        margin: 0;
+        
+        img {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+        }
+    }
+
+    .blog-header {
+        padding: 2rem 2rem 0;
+    }
+
+    .blog-categories {
+        display: flex;
+        gap: 0.75rem;
+        margin-bottom: 1.25rem;
+        flex-wrap: wrap;
+    }
+
+    .category-label {
+        display: inline-block;
+        padding: 0.4rem 1rem;
+        border-radius: 6px;
+        background: #e9ecef;
+        color: #495057;
+        font-size: 0.8rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition: background 0.2s ease;
+
+        &:hover {
+            background: #dee2e6;
+        }
+    }
+
+    h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+        color: #1a202c;
+    }
+
+    time {
+        display: block;
+        color: #718096;
+        font-size: 0.95rem;
+        margin-bottom: 2rem;
+    }
+
+    .blog-body {
+        padding: 2rem;
+        line-height: 1.8;
+        color: #2d3748;
+
+        // リッチエディタのスタイリング
+        h2 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+            position: relative;
+
+            &::after {
+                content: "";
+                display: block;
+                width: 20%;
+                background: #0097ab;
+                height: 2px;
+                left: 0;
+                bottom: 0;
+                position: absolute;
+            }
+
+            &::before {
+                content: '';
+                display: block;
+                width: 100%;
+                background-color: #e1e1e1;
+                height: 2px;
+                left: 0;
+                bottom: 0;
+                position: absolute;
+            }
+        }
+
+        h3 {
+            font-size: 2.3rem;
+            font-weight: 700;
+            padding: 1rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            background: #f2f3f7;
+        }
+
+        h4 {
+            font-size: 2rem;
+            border-left: 5px solid #0097ab;
+            padding-left: 0.75rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            margin-top: 0.25rem;
+            margin-bottom: 1rem;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        pre {
+      background: #2d2d2d;
+      padding: 1.5rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      position: relative;
+
+      code {
+        font-family: 'Source Code Pro', monospace;
+        font-size: 1.3rem;
+        line-height: 1.5;
+      }
+
+      .copy-button {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        padding: 0.35rem 0.7rem;
+        font-size: 0.8rem;
+        color: #fff;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        opacity: 0;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.2);
+        }
+      }
+
+      &:hover {
+        .copy-button {
+          opacity: 1;
+        }
+      }
+    }
+
+    // インラインコードのスタイル
+    :not(pre) > code {
+      background: #f1f1f1;
+      padding: 0.2em 0.4em;
+      border-radius: 3px;
+      font-size: 0.9em;
+      color: #e83e8c;
+    }
+
+        ul, ol {
+            margin: 1.5rem 0;
+            padding-left: 0;
+            margin-top: 1px;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            position: relative;
+            padding-left: 2rem;
+            margin: 0 0 0 1.25rem;
+
+            &::after {
+                content: '●';
+                display: block;
+                left: 0;
+                position: absolute;
+                top: 0;
+                color: #0097ab;
+            }
+        }
+
+        blockquote {
+            border-left: 4px solid #e9ecef;
+            padding-left: 1.5rem;
+            margin: 1.5rem 0;
+            color: #4a5568;
+        }
+    }
+}
+
+// レスポンシブ対応
+@media (max-width: 768px) {
+    .blog-detail {
+        padding: 4rem 0;
+
+        h1 {
+            font-size: 2rem;
+        }
+
+        .blog-body {
+            padding: 1.5rem;
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            h3 {
+                font-size: 1.25rem;
+            }
+        }
+    }
+}
+</style>
+
+<script>
+    // PrismJSとClipboardの初期化
+    import Prism from 'prismjs';
+    import 'prismjs/components/prism-javascript';
+    import 'prismjs/components/prism-typescript';
+    import 'prismjs/components/prism-css';
+    import 'prismjs/components/prism-scss';
+    import 'prismjs/components/prism-jsx';
+    import 'prismjs/components/prism-tsx';
+    import 'prismjs/components/prism-python';
+    import 'prismjs/components/prism-php';
+    import Clipboard from 'clipboard';
+
+    // コードブロックにコピーボタンを追加
+    document.querySelectorAll('pre').forEach((block) => {
+      // コピーボタンを作成
+      const button = document.createElement('button');
+      button.className = 'copy-button';
+      button.textContent = 'Copy';
+      
+      // コードブロックにボタンを追加
+      block.style.position = 'relative';
+      block.appendChild(button);
+    });
+
+    // Clipboardの初期化
+    new Clipboard('.copy-button', {
+      target: function(trigger) {
+        return trigger.previousElementSibling;
+      }
+    }).on('success', function(e) {
+      e.trigger.textContent = 'Copied!';
+      setTimeout(() => {
+        e.trigger.textContent = 'Copy';
+      }, 2000);
+    });
+
+    // シンタックスハイライトの適用
+    Prism.highlightAll();
+  </script>

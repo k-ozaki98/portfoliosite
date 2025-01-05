@@ -1,0 +1,261 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+---
+
+<Layout
+  pageId="contact"
+  title="お問い合わせ | Ozaki's Portfolio"
+  description="お問い合わせフォーム"
+>
+  <main>
+    <div class="contact-container">
+      <h1 class="title">CONTACT</h1>
+      <form
+        id="contactForm"
+        action="https://portfolio-688145.form.newt.so/v1/eHDsTsNsc"
+        method="post"
+        class="contact-form"
+      >
+        <div class="form-group">
+          <input type="text" name="name" id="name" required placeholder="" />
+          <label for="name" class="floating-label">NAME</label>
+          <span class="error-message" id="nameError"></span>
+            </div>
+            <div class="form-group">
+              <input type="email" name="email" id="email" required placeholder="" />
+              <label for="email" class="floating-label">E-MAIL</label>
+          <span class="error-message" id="emailError"></span>
+            </div>
+            <div class="form-group">
+              <textarea id="message" name="message" rows="4" required placeholder=""></textarea>
+              <label for="message" class="floating-label">CONTENT</label>
+          <div class="error-message" id="messageError"></div>
+        </div>
+        <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
+        <button type="submit" class="submit-btn">SEND</button>
+      </form>
+    </div>
+  </main>
+</Layout>
+
+<style lang="scss">
+  @import "../../styles/vars.scss";
+
+  .contact-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    background: linear-gradient(145deg, #f0f0f0, #ffffff);
+    border-radius: 20px;
+    box-shadow:
+      20px 20px 60px #d0d0d0,
+      -20px -20px 60px #ffffff;
+
+    .btn-wrap {
+      text-align: center;
+      margin-top: vw-pc(60);
+    }
+  }
+
+  .title {
+    font-size: 2.5em;
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .form-group {
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-bottom: 2px solid #ddd;
+    background-color: transparent;
+    transition: border-color 0.3s;
+    font-size: 16px;
+
+    &:focus {
+      outline: none;
+      border-color: #6a5acd;
+    }
+  }
+
+  .floating-label {
+    position: absolute;
+    pointer-events: none;
+    left: 10px;
+    top: 10px;
+    transition: 0.2s ease all;
+    color: #888;
+  }
+
+  input:focus ~ .floating-label,
+  input:not(:placeholder-shown) ~ .floating-label,
+  textarea:focus ~ .floating-label,
+  textarea:not(:placeholder-shown) ~ .floating-label {
+    top: -20px;
+    font-size: 14px;
+    color: #6a5acd;
+  }
+
+  .error-message {
+		color: #ff4136;
+		font-size: 12px;
+		margin-top: 5px;
+		display: block;
+		opacity: 0;
+		transition: opacity 0.3s ease;
+
+		&.visible {
+			opacity: 1;
+		}
+	}
+  .submit-btn {
+    padding: 20px;
+    background-color: #6a5acd;
+    width: 90%;
+    margin: 0 auto;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 18px;
+    transition:
+      transform 0.3s,
+      box-shadow 0.3s;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(106, 90, 205, 0.3);
+    }
+
+    &:active {
+      transform: translateY(-1px);
+      box-shadow: 0 3px 6px rgba(106, 90, 205, 0.3);
+    }
+  }
+</style>
+
+<script
+  is:inline
+  src="https://www.google.com/recaptcha/api.js?render=6Lf8oXUqAAAAADoVJZdvTAjewaF0t_eHygvM6I53&hl=ja"
+></script>
+
+<script>
+	// バリデーションの処理
+	document.addEventListener('DOMContentLoaded', (event) => {
+    const form = document.getElementById('contactForm');
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const messageInput = document.getElementById('message');
+    const submitButton = form.querySelector('button[type="submit"]');
+
+    const nameError = document.getElementById('nameError');
+    const emailError = document.getElementById('emailError');
+    const messageError = document.getElementById('messageError');
+
+    // バリデーション関数
+    function validateName() {
+      if (nameInput.value.trim() === '') {  // ariaValueMaxをvalueに修正
+        showError(nameInput, nameError, '氏名を入力してください');
+        return false;
+      }
+      hideError(nameInput, nameError);
+      return true;
+    }
+
+    function validateEmail() {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(emailInput.value)) {
+        showError(emailInput, emailError, '有効なメールアドレスを入力してください');
+        return false;
+      }
+      hideError(emailInput, emailError);
+      return true;
+    }
+
+    function validateMessage() {
+      if (messageInput.value.trim() === '') {  // ariaValueMaxをvalueに修正
+        showError(messageInput, messageError, 'メッセージを入力してください');
+        return false;
+      }
+      hideError(messageInput, messageError);
+      return true;
+    }
+
+    function showError(input, errorElement, message) {
+      input.classList.add('error');
+      errorElement.textContent = message;
+      errorElement.classList.add('visible');
+    }
+
+    function hideError(input, errorElement) {
+      input.classList.remove('error');
+      errorElement.textContent = '';
+      errorElement.classList.remove('visible');
+    }
+
+    function validateForm() {
+      const isNameValid = validateName();
+      const isEmailValid = validateEmail();
+      const isMessageValid = validateMessage();
+      submitButton.disabled = !(isNameValid && isEmailValid && isMessageValid);
+    }
+
+    // 入力フィールドのイベントリスナー
+    nameInput.addEventListener('input', validateForm);
+    emailInput.addEventListener('input', validateForm);
+    messageInput.addEventListener('input', validateForm);
+
+    // フォーム送信時の処理
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      if (validateName() && validateEmail() && validateMessage()) {
+        try {
+          // reCAPTCHAトークンの取得
+          const token = await grecaptcha.execute('6Lf8oXUqAAAAADoVJZdvTAjewaF0t_eHygvM6I53', {action: 'submit'});
+          
+          // トークンを隠しフィールドにセット
+          document.getElementById('g-recaptcha-response').value = token;
+
+          // カスタム送信処理
+          const formData = new FormData(form);
+          const response = await fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+              'Accept': 'application/json'
+            }
+          });
+
+          if (response.ok) {
+            alert('お問い合わせを送信しました。');
+            form.reset();
+          } else {
+            throw new Error('送信に失敗しました');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          alert('送信に失敗しました。もう一度お試しください。');
+        }
+      }
+    });
+
+    // 初期バリデーション
+    validateForm();
+  });
+</script>

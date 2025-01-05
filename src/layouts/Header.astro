@@ -1,0 +1,141 @@
+---
+// components/Header.astro
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = '/' } = Astro.props;
+
+const menuItems = [
+  { label: 'TOP', path: '/' },
+  { label: 'Profile', path: '/profile' },
+  { label: 'Blog', path: '/blog' },
+  { label: 'Work', path: '/work' },
+  { label: 'Contact', path: '/contact' },
+];
+---
+
+<header class="header">
+  <div class="header__inner">
+    <nav class="header__nav">
+			<h1 class="header__logo">
+				<a href="/">
+					<img src="../../assets/images/common/logo.svg" alt="ロゴ">
+				</a>
+			</h1>
+      <ul class="header__menu">
+        {menuItems.map((item) => (
+          <li class="header__menu-item">
+            <a 
+              href={item.path} 
+              class:list={[
+                'header__menu-link',
+                { 'is-active': currentPath === item.path }
+              ]}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style lang="scss">
+	@import '../styles/vars.scss';
+  .header {
+    // position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 100;
+    // box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+
+		&__inner {
+			width: 90%;
+			margin: 0 auto;
+		}
+    &__nav {
+      height: 27rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+		&__logo {
+			width: 17rem;
+    	height: 5rem;
+
+			img {
+				width: 100%;
+				height: 100%;
+			}
+		}
+
+    &__menu {
+      display: flex;
+      gap: 3rem;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+			
+    }
+
+    &__menu-item {
+      position: relative;
+    }
+
+    &__menu-link {
+      display: inline-block;
+      padding: 0.5rem 0;
+      text-decoration: none;
+      color: #333;
+      font-weight: 700;
+      font-size: 1.4rem;
+      position: relative;
+      transition: color 0.3s ease;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: #a77cff;
+        transition: width 0.3s ease;
+      }
+
+      &:hover {
+        color: #a77cff;
+
+        &::after {
+          width: 100%;
+        }
+      }
+
+      &.is-active {
+        color: #a77cff;
+
+        &::after {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .header {
+      &__menu {
+        gap: 1.5rem;
+      }
+
+      &__menu-link {
+        font-size: 0.9rem;
+      }
+    }
+  }
+</style>

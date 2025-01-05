@@ -1,0 +1,411 @@
+---
+import BlogSidebar from "../../components/BlogSidebar.astro";
+import Layout from "../../layouts/Layout.astro";
+import { getBlogs } from "../../lib/microcms";
+
+// ページネーション設定
+const PER_PAGE = 10;
+const currentPage = parseInt(Astro.url.searchParams.get('page') || '1');
+const offset = (currentPage - 1) * PER_PAGE;
+
+// データ取得を一度だけ行う
+const { contents: blogs, totalCount } = await getBlogs({
+    limit: PER_PAGE,
+    offset: offset
+});
+
+const totalPages = Math.ceil(totalCount / PER_PAGE);
+
+// デバッグログ
+console.log('Page Data:', {
+    currentPage,
+    offset,
+    totalCount,
+    totalPages,
+    fetchedCount: blogs.length
+});
+---
+
+<Layout 
+    pageId='blog' 
+    title='ブログ一覧' 
+    description='技術ブログの一覧ページです'
+>
+    <div class="blog-page blog">
+        <div class="l-inner">
+            <div class="blog-layout">
+                <main class="blog-main">
+                    <h1 class="page-title p-ttl">Blog</h1>
+                    <div class="blog__grid">
+											{blogs.map((blog) => (
+												<article class="blog__card">
+														<a href={`/blog/${blog.id}`} class="blog__link">
+																<div class="blog__thumbnail">
+																		{blog.thumbnail ? (
+																				<img 
+																						src={`${blog.thumbnail.url}?w=800`}
+																						alt={blog.title}
+																						width={400}
+																						height={225}
+																				/>
+																		) : (
+																				<div class="blog__thumbnail-placeholder">
+																						No Image
+																				</div>
+																		)}
+																</div>
+																<div class="blog__content">
+																		<div class="blog__header">
+																			<div class="blog__footer">
+																					<time datetime={blog.publishedAt} class="blog__date">
+																							{new Date(blog.publishedAt).toLocaleDateString('ja-JP', {
+																									year: 'numeric',
+																									month: 'short',
+																									day: 'numeric'
+																							})}
+																					</time>
+																			</div>
+																			{blog.categories && blog.categories.length > 0 && (
+																					<div class="blog__categories">
+																							{blog.categories.map((category) => (
+																									<span class="blog__category">
+																											{category.name}
+																									</span>
+																							))}
+																					</div>
+																			)}
+																			
+					
+																		</div>
+																		<h3 class="blog__title">{blog.title}</h3>
+																</div>
+														</a>
+												</article>
+										))}
+                    </div>
+
+                    <!-- ページネーション部分 -->
+{totalPages > 1 && (
+	<nav class="pagination" aria-label="ページネーション">
+			<ul class="pagination__list">
+					{currentPage > 1 && (
+							<li>
+									<a 
+											href={`/blog${currentPage === 2 ? '' : `?page=${currentPage - 1}`}`}
+											class="pagination__link pagination__prev"
+											rel="prev"
+									>
+											前へ
+									</a>
+							</li>
+					)}
+
+					{[...Array(totalPages)].map((_, i) => {
+							const pageNum = i + 1;
+							return (
+									<li>
+											<a 
+													href={pageNum === 1 ? '/blog' : `/blog?page=${pageNum}`}
+													class:list={[
+															'pagination__link',
+															{ 'is-active': pageNum === currentPage }
+													]}
+													aria-current={pageNum === currentPage ? 'page' : undefined}
+											>
+													{pageNum}
+											</a>
+									</li>
+							);
+					})}
+
+					{currentPage < totalPages && (
+							<li>
+									<a 
+											href={`/blog?page=${currentPage + 1}`}
+											class="pagination__link pagination__next"
+											rel="next"
+									>
+											次へ
+									</a>
+							</li>
+					)}
+			</ul>
+	</nav>
+)}
+                </main>
+                <BlogSidebar />
+            </div>
+        </div>
+    </div>
+</Layout>
+
+<style lang="scss">
+.blog-page {
+    background: #f8f9fa;
+
+
+    .blog-layout {
+        display: grid;
+        grid-template-columns: 1fr 280px;
+        gap: 4rem;
+
+        @media (max-width: 1024px) {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .blog__grid {
+        display: grid;
+        gap: 2.5rem;
+    }
+
+    .blog__card {
+        background: white;
+				transition: all 0.3s ease;
+
+				&:hover {
+            img {
+                transform: scale(1.03);
+            }
+        }
+
+        img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+        }
+    }
+
+
+    .blog__categories {
+        display: flex;
+        gap: 0.75rem;
+        margin-bottom: 1.25rem;
+        flex-wrap: wrap;
+    }
+
+    .category-label {
+        display: inline-block;
+        padding: 0.4rem 1rem;
+        border-radius: 6px;
+        background: #e9ecef;
+        color: #495057;
+        font-size: 0.8rem;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        transition: all 0.2s ease;
+				
+
+        &:hover {
+            background: #dee2e6;
+        }
+    }
+
+    h3 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        line-height: 1.4;
+        margin-bottom: 1rem;
+        color: #1a202c;
+        letter-spacing: -0.01em;
+
+        &:hover {
+            color: #3182ce;
+        }
+    }
+
+    p {
+        font-size: 0.95rem;
+        line-height: 1.7;
+        color: #4a5568;
+        margin-bottom: 1.5rem;
+        
+        // 3行で省略
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .blog__meta {
+        display: flex;
+        align-items: center;
+        margin: 1.5rem 0;
+
+        time {
+            color: #718096;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+    }
+
+    .read-more {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-decoration: none;
+        color: #3182ce;
+        font-size: 0.95rem;
+        font-weight: 500;
+        transition: gap 0.2s ease;
+
+        &::after {
+            content: '→';
+            transition: transform 0.2s ease;
+        }
+
+        &:hover {
+            gap: 0.75rem;
+            
+            &::after {
+                transform: translateX(2px);
+            }
+        }
+    }
+}
+
+/* Blog Section */
+.blog {
+    background: #fff;
+    
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 4rem;
+        margin-bottom: 5rem;
+    }
+    
+    &__card {
+        background: #fff;
+        transition: all 0.3s ease;
+        
+        &:hover {
+            .blog__thumbnail img {
+                transform: scale(1.03);
+            }
+
+						.blog__title {
+							color: #8749ff;
+						}
+        }
+    }
+    
+    &__link {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+    }
+    
+    &__thumbnail {
+        position: relative;
+        overflow: hidden;
+        background: #f8f8f8;
+        aspect-ratio: 16/9;
+        
+        img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+    }
+    
+    &__content {
+        padding: 1.5rem 0;
+    }
+    
+    &__categories {
+        display: flex;
+        gap: 0.5rem;
+    }
+    
+    &__category {
+        font-size: 1.3rem;
+        letter-spacing: 0.05em;
+        color: #666;
+        border: 1px solid #999;
+        padding: 0 0.75rem;
+        color: #999;
+    }
+
+    &__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+    
+    &__title {
+        font-size: 1.4rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+        line-height: 1.4;
+        color: #111;
+        color: var(--color-primary);
+				transition: 0.3s;
+    }
+    
+    &__excerpt {
+        font-size: 1rem;
+        line-height: 1.6;
+        color: #666;
+        margin-bottom: 1rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    
+    
+    &__date {
+        font-size: 1rem;
+        color: #999;
+        letter-spacing: 0.05em;
+    }
+}
+
+.pagination {
+    margin-top: 4rem;
+		margin-bottom: 8rem;
+
+    &__list {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        list-style: none;
+    }
+
+    &__link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 4rem;
+        height: 4rem;
+        border: 1px solid #eee;
+        color: var(--color-primary);
+        text-decoration: none;
+        font-size: 1.4rem;
+        transition: all 0.3s ease;
+
+        &:hover {
+            background: #f5f5f5;
+        }
+
+        &.is-active {
+            background: var(--color-primary);
+            color: white;
+            border-color: var(--color-primary);
+        }
+    }
+
+    &__prev,
+    &__next {
+        width: auto;
+        padding: 0 1.5rem;
+    }
+}
+</style>

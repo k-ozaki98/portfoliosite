@@ -1,0 +1,207 @@
+---
+import { getCategories, getBlogs } from '../lib/microcms';
+const categories = await getCategories();
+
+// 人気記事を取得（例として最新5件を表示）
+const { contents: popularPosts } = await getBlogs({ 
+    limit: 5,
+    orders: '-publishedAt'  // 実際のプロジェクトではPV数などでソート
+});
+---
+
+<aside class="blog-sidebar">
+    <div class="sidebar-about">
+        <div class="sidebar-icon">
+            <img src="../assets/images/top/profile.jpg" alt="">
+        </div>
+        <p class="sidebar-name">尾崎 幸喜</p>
+        <div class="sidebar-text">
+            <p>大阪市のWEB制作会社にてフロントエンドエンジニアとして</p>
+        </div>
+    </div>
+
+    <!-- 人気記事セクション -->
+    <div class="sidebar-section">
+        <h3 class="sidebar-title">人気記事</h3>
+        <div class="popular-posts">
+            {popularPosts.map((post, index) => (
+                <a href={`/blog/${post.id}`} class="popular-post">
+                    <div class="popular-post__number">{index + 1}</div>
+                    <div class="popular-post__content">
+                        {post.thumbnail && (
+                            <img 
+                                src={`${post.thumbnail.url}?w=100`} 
+                                alt={post.title}
+                                class="popular-post__image"
+                            />
+                        )}
+                        <div class="popular-post__info">
+                            <h4 class="popular-post__title">{post.title}</h4>
+                            <time class="popular-post__date">
+                                {new Date(post.publishedAt).toLocaleDateString('ja-JP')}
+                            </time>
+                        </div>
+                    </div>
+                </a>
+            ))}
+        </div>
+    </div>
+
+    <!-- カテゴリーセクション -->
+    <div class="sidebar-section">
+        <h3 class="sidebar-title">カテゴリー</h3>
+        <div class="category-list">
+            <a href="/blog" class="category-link">
+                全ての記事
+            </a>
+            {categories.map((category) => (
+                <a 
+                    href={`/blog/${category.slug}`} 
+                    class="category-link"
+                >
+                    {category.name}
+                </a>
+            ))}
+        </div>
+    </div>
+</aside>
+
+<style lang="scss">
+.blog-sidebar {
+    .sidebar-title {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid #eee;
+    }
+
+    .category-list {
+        li {
+            margin-bottom: 1rem;
+        }
+
+        .category-link {
+            display: block;
+            text-decoration: none;
+            color: #333;
+            padding: 0.5rem;
+            transition: background-color 0.3s;
+
+            &:hover {
+                background-color: #f5f5f5;
+            }
+        }
+    }
+
+    .sidebar-about {
+        margin-bottom: 4rem;
+    }
+
+    .sidebar-icon {
+        width: 15rem;
+        height: 15rem;
+        margin: 0 auto 2rem; 
+        border-radius: 50%;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06);
+
+    }
+
+    .sidebar-name {
+        text-align: center;
+        font-size: 1.7rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+    .sidebar-text {
+        font-size: 1.4rem;
+    }
+
+    .popular-posts {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .popular-post {
+        display: flex;
+        gap: 1.5rem;
+        text-decoration: none;
+        color: inherit;
+        transition: transform 0.3s ease;
+
+        &:hover {
+            transform: translateX(5px);
+        }
+
+        &__number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #4a90e2;
+            line-height: 1;
+            min-width: 2.5rem;
+        }
+
+        &__content {
+            display: flex;
+            gap: 1rem;
+            flex: 1;
+        }
+
+        &__image {
+            width: 6rem;
+            height: 6rem;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        &__info {
+            flex: 1;
+        }
+
+        &__title {
+            font-size: 1.4rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        &__date {
+            font-size: 1.2rem;
+            color: #666;
+        }
+    }
+
+    .sidebar-section {
+        background: white;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        margin-bottom: 3rem;
+    }
+
+    .category-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .category-link {
+        text-decoration: none;
+        font-size: 1.3rem;
+        letter-spacing: 0.05em;
+        color: #666;
+        border: 1px solid #999;
+        padding: 0 0.75rem;
+        color: #999;
+        transition: all 0.3s ease;
+
+        &:hover {
+            background-color: #f5f5f5;
+        }
+    }
+}
+</style>

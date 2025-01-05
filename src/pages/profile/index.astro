@@ -1,0 +1,237 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import BlogSidebar from '../../components/BlogSidebar.astro';
+import { getBlogs } from '../../lib/microcms';
+
+const { contents: blogs } = await getBlogs(); 
+---
+
+<Layout 
+    pageId='profile' 
+    title='プロフィール' 
+    description='OZAKI KOKIのプロフィールページです'
+>
+    <section class="profile">
+        <div class="l-inner">
+            <h2 class="section__title p-ttl">Profile</h2>
+            <div class="profile__content">
+                <div class="profile__text">
+                    <p>
+                        京都府出身のエンジニア。大学で経営学を学んだのち、<br>
+                        実家が営む製造業で金型加工に従事。その後ITの技術にひかれ、24歳でIT業界へ転職。<br>
+                        コーダーとしてアルバイトからキャリアをスタートし、<br>Webページ作成、CMS構築など、フロントエンドの業務を経験してきました。
+                    </p>
+                    <p>依頼して良かった！と皆様から言っていただけるように<br>
+                        コミュニケーションを大切にしています。</p>
+                </div>
+
+                <!-- スキルセクション -->
+                <div class="profile__skills">
+                    <h3 class="profile__subtitle">Skills</h3>
+                    <div class="skills-grid">
+                        <div class="skill-category">
+                            <h4>Frontend</h4>
+                            <ul>
+                                <li>HTML5/CSS3</li>
+                                <li>JavaScript</li>
+                                <li>React/Next.js</li>
+                                <li>Astro</li>
+                                <li>Tailwind CSS/SCSS</li>
+                            </ul>
+                        </div>
+                        <div class="skill-category">
+                            <h4>Backend</h4>
+                            <ul>
+                                <li>Node.js</li>
+                                <li>PHP</li>
+                                <li>MySQL</li>
+                            </ul>
+                        </div>
+                        <div class="skill-category">
+                            <h4>Tools & Others</h4>
+                            <ul>
+                                <li>Git/GitHub</li>
+                                <li>WordPress</li>
+                                <li>microCMS</li>
+                                <li>Adobe XD/Figma</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</Layout>
+
+<style lang="scss">
+@import '../../styles/vars.scss';
+
+.profile {
+    padding: 8rem 0;
+    background: #f8f9fa;
+
+    &__content {
+        margin: 0 auto;
+    }
+
+    &__text {
+        font-size: 1.6rem;
+        margin-bottom: 6rem;
+        line-height: 1.8;
+    }
+
+    &__subtitle {
+        font-size: 2.4rem;
+        margin-bottom: 2rem;
+        color: #2c3e50;
+        position: relative;
+        padding-left: 1.5rem;
+
+        &::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 24px;
+            background: #8749ff;
+        }
+    }
+
+    // スキルグリッド
+    .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3rem;
+        margin-bottom: 6rem;
+    }
+
+    .skill-category {
+        h4 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #8749ff;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+
+            li {
+                font-size: 1.6rem;
+                margin-bottom: 1rem;
+                padding-left: 1.5rem;
+                position: relative;
+
+                &::before {
+                    content: '•';
+                    position: absolute;
+                    left: 0;
+                    color: #8749ff;
+                }
+            }
+        }
+    }
+
+    // タイムライン
+    .timeline {
+        position: relative;
+        margin-bottom: 6rem;
+
+        &::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: #e9ecef;
+        }
+    }
+
+    .timeline-item {
+        padding-left: 3rem;
+        position: relative;
+        margin-bottom: 3rem;
+
+        &::before {
+            content: '';
+            position: absolute;
+            left: -4px;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #0097ab;
+        }
+    }
+
+    .timeline-date {
+        font-size: 1.4rem;
+        color: #666;
+        margin-bottom: 0.5rem;
+    }
+
+    // サービスグリッド
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3rem;
+        margin-bottom: 6rem;
+    }
+
+    .service-item {
+        background: white;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+        h4 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #0097ab;
+        }
+
+        p {
+            font-size: 1.4rem;
+            line-height: 1.6;
+        }
+    }
+
+    // 趣味・興味
+    .interests-content {
+        font-size: 1.4rem;
+        line-height: 1.8;
+    }
+
+    .interests-list {
+        list-style: none;
+        padding: 0;
+        margin-top: 2rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+
+        li {
+            background: #e9ecef;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 1.4rem;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .profile {
+        .skills-grid,
+        .services-grid {
+            grid-template-columns: 1fr;
+        }
+
+        &__subtitle {
+            font-size: 2rem;
+        }
+    }
+}
+</style>
