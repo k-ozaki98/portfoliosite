@@ -23,7 +23,7 @@ const menuItems = [
 					<img src="../../assets/images/common/logo.svg" alt="ロゴ">
 				</a>
 			</h1>
-      <ul class="header__menu">
+      <ul class="header__menu is-pc-tab">
         {menuItems.map((item) => (
           <li class="header__menu-item">
             <a 
@@ -44,6 +44,7 @@ const menuItems = [
 
 <style lang="scss">
 	@import '../styles/vars.scss';
+	@import '../styles/common.scss';
   .header {
     // position: fixed;
     top: 0;
@@ -63,11 +64,20 @@ const menuItems = [
       display: flex;
       align-items: center;
       justify-content: space-between;
+
+      @include max-screen($bp-sp) {
+         height: 13.5rem;   
+        }
     }
 
 		&__logo {
 			width: 17rem;
     	height: 5rem;
+
+      @include max-screen($bp-sp) {
+         width: 8.5rem;
+         height: 2.5rem;   
+        }
 
 			img {
 				width: 100%;
@@ -123,18 +133,6 @@ const menuItems = [
         &::after {
           width: 100%;
         }
-      }
-    }
-  }
-
-  @media (max-width: 768px) {
-    .header {
-      &__menu {
-        gap: 1.5rem;
-      }
-
-      &__menu-link {
-        font-size: 0.9rem;
       }
     }
   }

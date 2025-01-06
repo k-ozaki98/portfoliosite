@@ -30,7 +30,7 @@
 // PC タブレットのみ
 .is-pc-tab {
   @include max-screen($bp-sp) {
-    display: none;
+    display: none!important;
   }
 }
 

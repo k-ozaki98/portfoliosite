@@ -134,6 +134,12 @@ const currentPath = new URL(Astro.request.url).pathname;
         color: #8749ff;
         margin: 0 auto;
 
+        @include max-screen($bp-sp) {
+         width: 15rem;  
+         border-width: 2px; 
+         height: 4.5rem;
+        }
+
         &::before {
             content: "";
             position: absolute;
@@ -147,6 +153,10 @@ const currentPath = new URL(Astro.request.url).pathname;
             border-radius: inherit;
             background-color: #8749ff;
             transition: all 0.3s ease;
+
+            @include max-screen($bp-sp) {
+                
+            }
         }
 
         &::after {
@@ -161,6 +171,10 @@ const currentPath = new URL(Astro.request.url).pathname;
             background-color: #8749ff;
             border-radius: 2rem;
             transition: all 0.3s ease;
+
+            @include max-screen($bp-sp) {
+                
+            }
         }
 
         .text {
@@ -171,6 +185,10 @@ const currentPath = new URL(Astro.request.url).pathname;
             transform: translateY(-50%);
             transition: all 0.3s ease;
             z-index: 2;
+
+            @include max-screen($bp-sp) {
+                font-size: 1.4rem;
+            }
         }
 
         &:hover {
