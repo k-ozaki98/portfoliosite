@@ -371,6 +371,7 @@ const { contents: blogs } = await getBlogs({ limit: 6 });
 
 <style lang="scss">
   @import '../styles/vars.scss';
+  @import '../styles/common.scss';
 :root {
   --color-primary: #8749ff;     // メインの深い緑
   --color-primary-light: #a77cff;  // 明るい緑
@@ -1022,6 +1023,10 @@ body {
         flex-wrap: wrap;
         gap: 0.75rem;
         margin-bottom: 1rem;
+
+        @include max-screen($bp-sp) {
+         margin-bottom: 0.5rem;   
+        }
     }
     
     &__tag {

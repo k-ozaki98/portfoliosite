@@ -75,7 +75,8 @@ const menuItems = [
 </header>
 
 <style lang="scss">
-   @import '../styles/vars.scss';
+	@import '../styles/vars.scss';
+	@import '../styles/common.scss';
   .header {
     width: 100%;
     background: #000;
@@ -113,19 +114,26 @@ const menuItems = [
       display: flex;
       align-items: center;
       justify-content: space-between;
+
+      @include max-screen($bp-sp) {
+         height: 13.5rem;   
+        }
     }
 
     &__logo {
       width: 17rem;
       height: 5rem;
 
-      .pixel-image {
-        image-rendering: pixelated;
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-      }
-    }
+      @include max-screen($bp-sp) {
+         width: 8.5rem;
+         height: 2.5rem;   
+        }
+
+			img {
+				width: 100%;
+				height: 100%;
+			}
+		}
 
     &__menu {
       display: flex;
