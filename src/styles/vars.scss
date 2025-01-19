@@ -1,5 +1,21 @@
 @use "sass:math";
 
+@font-face {
+  font-family: 'PixelMplus12';
+  src: url('/assets/font/PixelMplus12-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PixelMplus12';
+  src: url('/assets/font/PixelMplus12-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
 $inner-width: 1000px;
 $bp-tab: 1000px;
 $bp-sp: 767px;
@@ -10,7 +26,7 @@ $main-color: #1e1d20;
 -------------------------- */
 $font-size-px: 16; // 基本フォントサイズ
 $font-size-rem: math.div($font-size-px, 10); // 基本フォントサイズ(rem)
-$font-family: "Noto Serif JP", "ヒラギノ角ゴ ProN",
+$font-family: "PixelMplus12", "ヒラギノ角ゴ ProN",
 			"Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, "ＭＳ Ｐゴシック",
 			"MS PGothic", sans-serif;
 $font-color: #505A5F; // 基本フォントカラー

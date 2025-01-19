@@ -2,6 +2,22 @@
 	レスポンシブ関係
 -------------------------- */
 
+@font-face {
+  font-family: 'PixelMplus12';
+  src: url('/assets/font/PixelMplus12-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PixelMplus12';
+  src: url('/assets/font/PixelMplus12-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
 // PCのみ
 .is-pc {
   @include max-screen($bp-tab) {
@@ -23,14 +39,14 @@
 // スマホのみ
 .is-sp {
   @include min-screen($bp-sp + 1) {
-    display: none;
+    display: none!important;
   }
 }
 
 // PC タブレットのみ
 .is-pc-tab {
   @include max-screen($bp-sp) {
-    display: none;
+    display: none!important;
   }
 }
 

@@ -32,8 +32,19 @@ const works = [
     description='制作実績の一覧ページです'
 >
     <section class="work-page">
+        <div class="page-kv">
+            <div class="page-kv__wrap">
+                <div>
+                    <h2>制作実績</h2>
+                    <p class="page-kv__text">
+                        これまで制作したWebサイトです。<br>
+                        「Web制作やデザインを頼みたい」「既存のWebサイトを修正・改善したい」など是非、お気軽にご相談ください。
+                    </p>
+                </div>
+                <h3 class="fp">WORK</h3>
+            </div>
+        </div>
         <div class="l-inner">
-            <h1 class="page-title p-ttl">Work</h1>
             <div class="work__grid">
                 {works.map((work) => (
                     <article class="work__card">
@@ -67,43 +78,51 @@ const works = [
 </Layout>
 
 <style lang="scss">
+/* Works Section */
+
 .work-page {
     padding: 8rem 0;
-    background: #f8f9fa;
+}
+.work {
+    background: #000;
+    color: #fff;
 
-    .work__grid {
+    &__grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 4rem;
         margin-bottom: 4rem;
     }
-
-    .work__card {
+    
+    &__card {
+        background-color: #000;
+        box-shadow: 0 0 0 3px #000;
+        border: 2px solid #fff;
+        border-radius: 5px;
         overflow: hidden;
         transition: all 0.3s ease;
-
+        
         &:hover {
-
             .work__thumbnail img {
                 transform: scale(1.03);
             }
             .work__title {
-              color: var(--color-primary);
+                color: #dcb434;
             }
         }
     }
 
-    .work__link {
+    &__link {
         text-decoration: none;
         color: inherit;
         display: block;
     }
-
-    .work__thumbnail {
+    
+    &__thumbnail {
         position: relative;
         overflow: hidden;
         aspect-ratio: 16/9;
-
+        
         img {
             width: 100%;
             height: 100%;
@@ -111,72 +130,115 @@ const works = [
             transition: transform 0.5s ease;
         }
     }
-
-    .work__content {
+    
+    &__content {
         padding: 2rem;
     }
-
-    .work__header {
-        margin-bottom: 1.5rem;
-    }
-
-    .work__category {
-        display: inline-block;
-        font-size: 1.3rem;
-        color: var(--color-primary);
-        margin-bottom: 0.5rem;
-    }
-
-    .work__title {
-        font-size: 2rem;
+    
+    &__title {
+        font-size: 1.8rem;
         font-weight: 600;
-        margin-bottom: 0.5rem;
         line-height: 1.4;
+        transition: color 0.3s ease;
+        color: #dcb434;
     }
-
-    .work__client {
+    
+    &__description {
         font-size: 1.4rem;
-        color: #666;
-    }
-
-    .work__description {
-        font-size: 1.4rem;
-        line-height: 1.7;
-        color: #666;
+        color: #fff;
         margin-bottom: 1.5rem;
     }
-
-    .work__tags {
+    
+    &__tags {
         display: flex;
         flex-wrap: wrap;
         gap: 0.75rem;
+        margin-bottom: 1rem;
     }
-
-    .work__tag {
+    
+    &__tag {
         font-size: 1.3rem;
         letter-spacing: 0.05em;
-        color: #666;
-        border: 1px solid #999;
+        color: #fff;
+        border: 1px solid #fff;
         padding: 0 0.75rem;
-        color: #999;
+    }
+
+    &__more {
+        text-align: center;
+        margin-top: 4rem;
+
+        .btn-A {
+            display: inline-block;
+            background: #000;
+            box-shadow: 0 0 0 3px #000;
+            border: 2px solid #fff;
+            border-radius: 5px;
+            padding: 1.5rem 4rem;
+            transition: all 0.3s ease;
+            position: relative;
+
+            &::before {
+                content: '▶';
+                position: absolute;
+                left: 1.5rem;
+                color: #dcb434;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+
+            &:hover {
+                border-color: #dcb434;
+
+                &::before {
+                    opacity: 1;
+                }
+
+                .text {
+                    color: #dcb434;
+                }
+            }
+
+            .text {
+                color: #fff;
+                font-size: 1.6rem;
+                text-decoration: none;
+                padding-left: 1rem;
+                transition: color 0.3s ease;
+            }
+        }
     }
 }
 
+/* レスポンシブ対応 */
 @media (max-width: 768px) {
-    .work-page {
-        padding: 4rem 0;
-
-        .work__grid {
+    .work {
+        &__grid {
             grid-template-columns: 1fr;
             gap: 2rem;
         }
 
-        .work__title {
-            font-size: 1.8rem;
+        &__title {
+            font-size: 1.6rem;
         }
 
-        .work__description {
-            font-size: 1.3rem;
+        &__description {
+            font-size: 1.2rem;
+        }
+
+        &__tag {
+            font-size: 1.1rem;
+        }
+
+        &__more {
+            .btn-A {
+                width: 100%;
+                padding: 1.2rem;
+
+                .text {
+                    font-size: 1.4rem;
+                }
+            }
         }
     }
 }

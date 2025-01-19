@@ -48,7 +48,18 @@ const breadcrumbItems = [
     description={blog.description || ''}
 >
     <div class="blog-detail">
-        <div class="l-inner">
+        <div class="page-kv">
+            <div class="page-kv__wrap">
+                <div>
+                    <h2>ブログ</h2>
+                    <p class="page-kv__text">
+                        日々の開発で得た知見や、技術的な発見をアウトプットしていきます。フロントエンド開発を中心に、実装のヒントやトラブルシューティング、新しい技術の検証結果など、実践的な情報を発信。エンジニアとしての成長の記録であり、同じ課題に直面する方々への導きとなることを目指しています。
+                    </p>
+                </div>
+                <h3 class="fp">BLOG</h3>
+            </div>
+        </div>
+        <div class="xl-inner">
             <div class="blog-layout">
                 <main>
                     <article class="blog-content">
@@ -173,24 +184,15 @@ const breadcrumbItems = [
 
         // リッチエディタのスタイリング
         h2 {
-            font-size: 2.8rem;
-            font-weight: 700;
-            padding-top: 0.5rem;
-            padding-bottom: 0.5rem;
-            margin-top: 2rem;
-            margin-bottom: 0.75rem;
+            margin: 30px 0;
+            padding: .5em .75em;
+            background-color: #000;
+            border: 6px double #fff;
+            border-radius: 12px;
+            font-size: 1.5em;
+            color: #fff;
             position: relative;
 
-            &::after {
-                content: "";
-                display: block;
-                width: 20%;
-                background: #0097ab;
-                height: 2px;
-                left: 0;
-                bottom: 0;
-                position: absolute;
-            }
 
             &::before {
                 content: '';
@@ -205,21 +207,18 @@ const breadcrumbItems = [
         }
 
         h3 {
-            font-size: 2.3rem;
-            font-weight: 700;
-            padding: 1rem;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-            line-height: 1.6;
-            background: #f2f3f7;
+            padding: .5em 0;
+            border-top: 3px solid #000;
+            border-bottom: 3px solid #000;
+            font-size: 1.25em;
+            margin: 3rem 0 2rem;
         }
 
         h4 {
-            font-size: 2rem;
-            border-left: 5px solid #0097ab;
-            padding-left: 0.75rem;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
+            padding: .5em;
+            background-color: #f3f3f3;
+            font-size: 1.25em;
+            margin: 3rem 0 2rem;
         }
 
         p {
@@ -301,7 +300,7 @@ const breadcrumbItems = [
                 left: 0;
                 position: absolute;
                 top: 0;
-                color: #0097ab;
+                color: #666;
             }
         }
 

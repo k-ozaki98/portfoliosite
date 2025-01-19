@@ -12,7 +12,7 @@ export default defineConfig({
         JSON.stringify(process.env.MICROCMS_API_KEY),
     },
   },
-
+  integrations: [react()],
   output: 'server',
   adapter: netlify(),
 });

@@ -14,65 +14,71 @@ const { contents: popularPosts } = await getBlogs({
         <div class="sidebar-icon">
             <img src="../assets/images/top/profile.jpg" alt="">
         </div>
-        <p class="sidebar-name">尾崎 幸喜</p>
-        <div class="sidebar-text">
-            <p>大阪市のWEB制作会社にてフロントエンドエンジニアとして</p>
+        <div class="sidebar-wrap b-wrap">
+            <p class="sidebar-name">尾崎 幸喜</p>
+            <div class="sidebar-text">
+                <p>大阪市のWEB制作会社にてフロントエンドエンジニアとして</p>
+            </div>
         </div>
     </div>
-
-    <!-- 人気記事セクション -->
-    <div class="sidebar-section">
-        <h3 class="sidebar-title">人気記事</h3>
-        <div class="popular-posts">
-            {popularPosts.map((post, index) => (
-                <a href={`/blog/${post.id}`} class="popular-post">
-                    <div class="popular-post__number">{index + 1}</div>
-                    <div class="popular-post__content">
-                        {post.thumbnail && (
-                            <img 
-                                src={`${post.thumbnail.url}?w=100`} 
-                                alt={post.title}
-                                class="popular-post__image"
-                            />
-                        )}
-                        <div class="popular-post__info">
-                            <h4 class="popular-post__title">{post.title}</h4>
-                            <time class="popular-post__date">
-                                {new Date(post.publishedAt).toLocaleDateString('ja-JP')}
-                            </time>
-                        </div>
-                    </div>
-                </a>
-            ))}
-        </div>
-    </div>
-
     <!-- カテゴリーセクション -->
     <div class="sidebar-section">
-        <h3 class="sidebar-title">カテゴリー</h3>
-        <div class="category-list">
-            <a href="/blog" class="category-link">
-                全ての記事
-            </a>
-            {categories.map((category) => (
-                <a 
-                    href={`/blog/${category.slug}`} 
-                    class="category-link"
-                >
-                    {category.name}
+        <div class="sidebar-wrap b-wrap">
+            <h3 class="sidebar-title">カテゴリー</h3>
+            <div class="category-list">
+                <a href="/blog" class="category-link">
+                    全ての記事
                 </a>
-            ))}
+                {categories.map((category) => (
+                    <a 
+                        href={`/blog/${category.slug}`} 
+                        class="category-link"
+                    >
+                        {category.name}
+                    </a>
+                ))}
+            </div>
+
         </div>
     </div>
 </aside>
 
 <style lang="scss">
+
+.dq-window {
+    background: var(--dq-window-bg);
+    border: 4px solid var(--dq-border);
+    box-shadow: 0 0 0 6px var(--dq-window-bg);
+    position: relative;
+    margin: 8px 0 40px;
+    padding: 3rem 4rem;
+    color: var(--dq-border);
+    
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        background: var(--dq-border);
+    }
+    
+    &::before { top: -6px; left: -6px; }
+    &::after { bottom: -6px; right: -6px; }
+}
 .blog-sidebar {
     .sidebar-title {
         font-size: 2rem;
-        margin-bottom: 2rem;
-        padding-bottom: 1rem;
-        border-bottom: 2px solid #eee;
+        padding: 0 1rem;
+        display: inline-block;
+        color: #fff;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        white-space: nowrap;
+        background: #000;
+        // border-bottom: 2px solid #eee;
     }
 
     .category-list {
@@ -93,8 +99,19 @@ const { contents: popularPosts } = await getBlogs({
         }
     }
 
+    .sidebar-wrap {
+        position: relative;
+        padding: 2rem;
+    }
     .sidebar-about {
         margin-bottom: 4rem;
+        border-radius: 5px;
+    background: #fff;
+    background-color: #000;
+    box-shadow: 0 0 0 4px #000;
+    border: 2px solid #fff;
+    padding:2rem;
+    color: #fff;
     }
 
     .sidebar-icon {
@@ -112,6 +129,12 @@ const { contents: popularPosts } = await getBlogs({
         font-size: 1.7rem;
         font-weight: bold;
         margin-bottom: 1rem;
+        padding: 0 1rem;
+        background: #000;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
     .sidebar-text {
         font-size: 1.4rem;
@@ -123,64 +146,14 @@ const { contents: popularPosts } = await getBlogs({
         gap: 1.5rem;
     }
 
-    .popular-post {
-        display: flex;
-        gap: 1.5rem;
-        text-decoration: none;
-        color: inherit;
-        transition: transform 0.3s ease;
-
-        &:hover {
-            transform: translateX(5px);
-        }
-
-        &__number {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #4a90e2;
-            line-height: 1;
-            min-width: 2.5rem;
-        }
-
-        &__content {
-            display: flex;
-            gap: 1rem;
-            flex: 1;
-        }
-
-        &__image {
-            width: 6rem;
-            height: 6rem;
-            object-fit: cover;
-            border-radius: 4px;
-        }
-
-        &__info {
-            flex: 1;
-        }
-
-        &__title {
-            font-size: 1.4rem;
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        &__date {
-            font-size: 1.2rem;
-            color: #666;
-        }
-    }
 
     .sidebar-section {
-        background: white;
-        padding: 2rem;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        margin-bottom: 3rem;
+        border-radius: 5px;
+    background: #fff;
+    background-color: #000;
+    box-shadow: 0 0 0 4px #000;
+    border: 2px solid #fff;
+    padding: 3.2rem;
     }
 
     .category-list {
@@ -193,10 +166,10 @@ const { contents: popularPosts } = await getBlogs({
         text-decoration: none;
         font-size: 1.3rem;
         letter-spacing: 0.05em;
-        color: #666;
-        border: 1px solid #999;
+        color: #fff!important;
+        border: 1px solid #fff;
         padding: 0 0.75rem;
-        color: #999;
+        color: #fff;
         transition: all 0.3s ease;
 
         &:hover {

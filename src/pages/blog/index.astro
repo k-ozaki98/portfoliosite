@@ -32,106 +32,117 @@ console.log('Page Data:', {
     description='技術ブログの一覧ページです'
 >
     <div class="blog-page blog">
-        <div class="l-inner">
+        <div class="page-kv">
+            <div class="page-kv__wrap">
+                <div>
+                    <h2>ブログ</h2>
+                    <p class="page-kv__text">
+                        日々の開発で得た知見や、技術的な発見をアウトプットしていきます。フロントエンド開発を中心に、実装のヒントやトラブルシューティング、新しい技術の検証結果など、実践的な情報を発信。エンジニアとしての成長の記録であり、同じ課題に直面する方々への導きとなることを目指しています。
+                    </p>
+                </div>
+                <h3 class="fp">BLOG</h3>
+            </div>
+        </div>
+        <div class="xl-inner">
             <div class="blog-layout">
                 <main class="blog-main">
-                    <h1 class="page-title p-ttl">Blog</h1>
+                    <!-- <h1 class="page-title p-ttl">Blog</h1> -->
                     <div class="blog__grid">
-											{blogs.map((blog) => (
-												<article class="blog__card">
-														<a href={`/blog/${blog.id}`} class="blog__link">
-																<div class="blog__thumbnail">
-																		{blog.thumbnail ? (
-																				<img 
-																						src={`${blog.thumbnail.url}?w=800`}
-																						alt={blog.title}
-																						width={400}
-																						height={225}
-																				/>
-																		) : (
-																				<div class="blog__thumbnail-placeholder">
-																						No Image
-																				</div>
-																		)}
-																</div>
-																<div class="blog__content">
-																		<div class="blog__header">
-																			<div class="blog__footer">
-																					<time datetime={blog.publishedAt} class="blog__date">
-																							{new Date(blog.publishedAt).toLocaleDateString('ja-JP', {
-																									year: 'numeric',
-																									month: 'short',
-																									day: 'numeric'
-																							})}
-																					</time>
-																			</div>
-																			{blog.categories && blog.categories.length > 0 && (
-																					<div class="blog__categories">
-																							{blog.categories.map((category) => (
-																									<span class="blog__category">
-																											{category.name}
-																									</span>
-																							))}
-																					</div>
-																			)}
-																			
-					
-																		</div>
-																		<h3 class="blog__title">{blog.title}</h3>
-																</div>
-														</a>
-												</article>
-										))}
+                        {blogs.map((blog) => (
+                            <article class="blog__card">
+                                    <a href={`/blog/${blog.id}`} class="blog__link">
+                                            <div class="blog__thumbnail">
+                                                    {blog.thumbnail ? (
+                                                            <img 
+                                                                    src={`${blog.thumbnail.url}?w=800`}
+                                                                    alt={blog.title}
+                                                                    width={400}
+                                                                    height={225}
+                                                            />
+                                                    ) : (
+                                                            <div class="blog__thumbnail-placeholder">
+                                                                    No Image
+                                                            </div>
+                                                    )}
+                                            </div>
+                                            <div class="blog__content">
+                                                    <div class="blog__header">
+                                                        <div class="blog__footer">
+                                                                <time datetime={blog.publishedAt} class="blog__date">
+                                                                        {new Date(blog.publishedAt).toLocaleDateString('ja-JP', {
+                                                                                year: 'numeric',
+                                                                                month: 'short',
+                                                                                day: 'numeric'
+                                                                        })}
+                                                                </time>
+                                                        </div>
+                                                        {blog.categories && blog.categories.length > 0 && (
+                                                                <div class="blog__categories">
+                                                                        {blog.categories.map((category) => (
+                                                                                <span class="blog__category">
+                                                                                        {category.name}
+                                                                                </span>
+                                                                        ))}
+                                                                </div>
+                                                        )}
+                                                        
+
+                                                    </div>
+                                                    <h3 class="blog__title">{blog.title}</h3>
+                                            </div>
+                                    </a>
+                            </article>
+                    ))}
                     </div>
 
                     <!-- ページネーション部分 -->
-{totalPages > 1 && (
-	<nav class="pagination" aria-label="ページネーション">
-			<ul class="pagination__list">
-					{currentPage > 1 && (
-							<li>
-									<a 
-											href={`/blog${currentPage === 2 ? '' : `?page=${currentPage - 1}`}`}
-											class="pagination__link pagination__prev"
-											rel="prev"
-									>
-											前へ
-									</a>
-							</li>
-					)}
+                    {totalPages > 1 && (
+                        <nav class="pagination" aria-label="ページネーション">
+                                <ul class="pagination__list">
+                                        {currentPage > 1 && (
+                                                <li>
+                                                        <a 
+                                                                href={`/blog${currentPage === 2 ? '' : `?page=${currentPage - 1}`}`}
+                                                                class="pagination__link pagination__prev"
+                                                                rel="prev"
+                                                        >
+                                                                前へ
+                                                        </a>
+                                                </li>
+                                        )}
 
-					{[...Array(totalPages)].map((_, i) => {
-							const pageNum = i + 1;
-							return (
-									<li>
-											<a 
-													href={pageNum === 1 ? '/blog' : `/blog?page=${pageNum}`}
-													class:list={[
-															'pagination__link',
-															{ 'is-active': pageNum === currentPage }
-													]}
-													aria-current={pageNum === currentPage ? 'page' : undefined}
-											>
-													{pageNum}
-											</a>
-									</li>
-							);
-					})}
+                                        {[...Array(totalPages)].map((_, i) => {
+                                                const pageNum = i + 1;
+                                                return (
+                                                        <li>
+                                                                <a 
+                                                                        href={pageNum === 1 ? '/blog' : `/blog?page=${pageNum}`}
+                                                                        class:list={[
+                                                                                'pagination__link',
+                                                                                { 'is-active': pageNum === currentPage }
+                                                                        ]}
+                                                                        aria-current={pageNum === currentPage ? 'page' : undefined}
+                                                                >
+                                                                        {pageNum}
+                                                                </a>
+                                                        </li>
+                                                );
+                                        })}
 
-					{currentPage < totalPages && (
-							<li>
-									<a 
-											href={`/blog?page=${currentPage + 1}`}
-											class="pagination__link pagination__next"
-											rel="next"
-									>
-											次へ
-									</a>
-							</li>
-					)}
-			</ul>
-	</nav>
-)}
+                                        {currentPage < totalPages && (
+                                                <li>
+                                                        <a 
+                                                                href={`/blog?page=${currentPage + 1}`}
+                                                                class="pagination__link pagination__next"
+                                                                rel="next"
+                                                        >
+                                                                次へ
+                                                        </a>
+                                                </li>
+                                        )}
+                                </ul>
+                        </nav>
+                    )}
                 </main>
                 <BlogSidebar />
             </div>
@@ -141,8 +152,7 @@ console.log('Page Data:', {
 
 <style lang="scss">
 .blog-page {
-    background: #f8f9fa;
-
+    padding: 8rem 0;
 
     .blog-layout {
         display: grid;
@@ -153,121 +163,10 @@ console.log('Page Data:', {
             grid-template-columns: 1fr;
         }
     }
-
-    .blog__grid {
-        display: grid;
-        gap: 2.5rem;
-    }
-
-    .blog__card {
-        background: white;
-				transition: all 0.3s ease;
-
-				&:hover {
-            img {
-                transform: scale(1.03);
-            }
-        }
-
-        img {
-            width: 100%;
-            height: 240px;
-            object-fit: cover;
-        }
-    }
-
-
-    .blog__categories {
-        display: flex;
-        gap: 0.75rem;
-        margin-bottom: 1.25rem;
-        flex-wrap: wrap;
-    }
-
-    .category-label {
-        display: inline-block;
-        padding: 0.4rem 1rem;
-        border-radius: 6px;
-        background: #e9ecef;
-        color: #495057;
-        font-size: 0.8rem;
-        font-weight: 500;
-        letter-spacing: 0.02em;
-        transition: all 0.2s ease;
-				
-
-        &:hover {
-            background: #dee2e6;
-        }
-    }
-
-    h3 {
-        font-size: 1.5rem;
-        font-weight: 700;
-        line-height: 1.4;
-        margin-bottom: 1rem;
-        color: #1a202c;
-        letter-spacing: -0.01em;
-
-        &:hover {
-            color: #3182ce;
-        }
-    }
-
-    p {
-        font-size: 0.95rem;
-        line-height: 1.7;
-        color: #4a5568;
-        margin-bottom: 1.5rem;
-        
-        // 3行で省略
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
-
-    .blog__meta {
-        display: flex;
-        align-items: center;
-        margin: 1.5rem 0;
-
-        time {
-            color: #718096;
-            font-size: 0.875rem;
-            font-weight: 500;
-        }
-    }
-
-    .read-more {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        text-decoration: none;
-        color: #3182ce;
-        font-size: 0.95rem;
-        font-weight: 500;
-        transition: gap 0.2s ease;
-
-        &::after {
-            content: '→';
-            transition: transform 0.2s ease;
-        }
-
-        &:hover {
-            gap: 0.75rem;
-            
-            &::after {
-                transform: translateX(2px);
-            }
-        }
-    }
 }
 
-/* Blog Section */
+/* ブログセクション */
 .blog {
-    background: #fff;
-    
     &__grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -276,30 +175,26 @@ console.log('Page Data:', {
     }
     
     &__card {
-        background: #fff;
-        transition: all 0.3s ease;
+        background-color: #000;
+        box-shadow: 0 0 0 3px #000;
+        border: 2px solid #fff;
+        border-radius: 5px;
+        transition: transform 0.3s ease;
         
         &:hover {
             .blog__thumbnail img {
                 transform: scale(1.03);
             }
-
-						.blog__title {
-							color: #8749ff;
-						}
+            .blog__title {
+                color: #dcb434; // ドラクエ風の金色
+            }
         }
-    }
-    
-    &__link {
-        text-decoration: none;
-        color: inherit;
-        display: block;
     }
     
     &__thumbnail {
         position: relative;
         overflow: hidden;
-        background: #f8f8f8;
+        background: #000;
         aspect-ratio: 16/9;
         
         img {
@@ -311,10 +206,20 @@ console.log('Page Data:', {
             object-fit: cover;
             transition: transform 0.5s ease;
         }
+
+        &-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.4rem;
+        }
     }
     
     &__content {
-        padding: 1.5rem 0;
+        padding: 1.5rem;
     }
     
     &__categories {
@@ -325,51 +230,44 @@ console.log('Page Data:', {
     &__category {
         font-size: 1.3rem;
         letter-spacing: 0.05em;
-        color: #666;
-        border: 1px solid #999;
+        color: #dcb434;
+        border: 1px solid #dcb434;
         padding: 0 0.75rem;
-        color: #999;
     }
 
     &__header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
     }
     
     &__title {
-        font-size: 1.4rem;
-        font-weight: 600;
+        font-size: 1.6rem;
         margin-bottom: 0.75rem;
         line-height: 1.4;
-        color: #111;
-        color: var(--color-primary);
-				transition: 0.3s;
+        color: #fff;
+        transition: color 0.3s ease;
     }
     
     &__excerpt {
-        font-size: 1rem;
+        font-size: 1.4rem;
         line-height: 1.6;
-        color: #666;
+        color: #fff;
         margin-bottom: 1rem;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
     }
     
-    
     &__date {
-        font-size: 1rem;
-        color: #999;
+        font-size: 1.2rem;
+        color: #fff;
         letter-spacing: 0.05em;
     }
 }
 
+/* ページネーション */
 .pagination {
     margin-top: 4rem;
-		margin-bottom: 8rem;
+    margin-bottom: 8rem;
 
     &__list {
         display: flex;
@@ -385,20 +283,23 @@ console.log('Page Data:', {
         justify-content: center;
         width: 4rem;
         height: 4rem;
-        border: 1px solid #eee;
-        color: var(--color-primary);
+        border: 2px solid #fff;
+        background: #000;
+        color: #fff;
         text-decoration: none;
         font-size: 1.4rem;
         transition: all 0.3s ease;
+        font-family: "PixelMplus12", monospace;
 
         &:hover {
-            background: #f5f5f5;
+            color: #dcb434;
+            border-color: #dcb434;
         }
 
         &.is-active {
-            background: var(--color-primary);
-            color: white;
-            border-color: var(--color-primary);
+            background: #000;
+            color: #dcb434;
+            border-color: #dcb434;
         }
     }
 
@@ -406,6 +307,100 @@ console.log('Page Data:', {
     &__next {
         width: auto;
         padding: 0 1.5rem;
+        position: relative;
+
+        &::before {
+            content: '▶';
+            position: absolute;
+            color: #dcb434;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        &:hover::before {
+            opacity: 1;
+        }
+    }
+
+    &__prev::before {
+        left: 0.5rem;
+        transform: rotate(180deg);
+    }
+
+    &__next::before {
+        right: 0.5rem;
+    }
+}
+
+/* サイドバーのスタイル調整 */
+.sidebar {
+    .widget {
+        background: #000;
+        border: 2px solid #fff;
+        box-shadow: 0 0 0 3px #000;
+        border-radius: 5px;
+        padding: 2rem;
+        margin-bottom: 3rem;
+        color: #fff;
+
+        h3 {
+            color: #dcb434;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            font-family: "PixelMplus12", monospace;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+
+            li {
+                margin-bottom: 1rem;
+                position: relative;
+                padding-left: 2rem;
+
+                &::before {
+                    content: '▶';
+                    position: absolute;
+                    left: 0;
+                    color: #dcb434;
+                    opacity: 0;
+                    transition: opacity 0.3s ease;
+                }
+
+                &:hover::before {
+                    opacity: 1;
+                }
+
+                a {
+                    color: #fff;
+                    text-decoration: none;
+                    font-size: 1.4rem;
+                    transition: color 0.3s ease;
+
+                    &:hover {
+                        color: #dcb434;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .blog {
+        &__grid {
+            grid-template-columns: 1fr;
+        }
+
+        &__title {
+            font-size: 1.4rem;
+        }
+
+        &__category {
+            font-size: 1.2rem;
+        }
     }
 }
 </style>

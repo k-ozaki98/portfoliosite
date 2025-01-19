@@ -1,4 +1,18 @@
 @charset "UTF-8";
+@font-face {
+  font-family: "PixelMplus12";
+  src: url("/assets/font/PixelMplus12-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "PixelMplus12";
+  src: url("/assets/font/PixelMplus12-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
 /* --------------------------
 	フォントの設定
 -------------------------- */

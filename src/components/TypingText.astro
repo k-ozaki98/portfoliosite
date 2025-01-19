@@ -1,0 +1,132 @@
+---
+interface Props {
+  texts: string[];
+  speed?: number;
+  backSpeed?: number;
+  backDelay?: number;
+  startDelay?: number;
+  loop?: boolean;
+  className?: string;
+}
+
+const {
+  texts,
+  speed = 100,
+  backSpeed = 50,
+  backDelay = 1000,
+  startDelay = 300,
+  loop = true,
+  className = ''
+} = Astro.props;
+---
+
+<div class={`typing-container ${className}`}>
+  <span class="typing"></span>
+  <span class="cursor">|</span>
+</div>
+
+<script define:vars={{ texts, speed, backSpeed, backDelay, startDelay, loop }}>
+// iTypeの実装
+class IType {
+  constructor(element, options) {
+    this.element = element;
+    this.texts = options.texts || [''];
+    this.speed = options.speed || 100;
+    this.backSpeed = options.backSpeed || 50;
+    this.backDelay = options.backDelay || 1000;
+    this.startDelay = options.startDelay || 300;
+    this.loop = options.loop !== undefined ? options.loop : true;
+    
+    this.currentTextIndex = 0;
+    this.currentCharIndex = 0;
+    this.isDeleting = false;
+    this.isWaiting = false;
+    
+    setTimeout(() => this.type(), this.startDelay);
+  }
+
+  type() {
+    const currentText = this.texts[this.currentTextIndex];
+    
+    if (this.isDeleting) {
+      // テキストを削除
+      this.currentCharIndex--;
+      this.element.textContent = currentText.substring(0, this.currentCharIndex);
+      
+      if (this.currentCharIndex === 0) {
+        this.isDeleting = false;
+        this.currentTextIndex = (this.currentTextIndex + 1) % this.texts.length;
+        
+        if (!this.loop && this.currentTextIndex === 0) {
+          return;
+        }
+        
+        setTimeout(() => this.type(), this.backDelay);
+        return;
+      }
+    } else {
+      // テキストを追加
+      this.currentCharIndex++;
+      this.element.textContent = currentText.substring(0, this.currentCharIndex);
+      
+      if (this.currentCharIndex === currentText.length) {
+        if (!this.loop && this.currentTextIndex === this.texts.length - 1) {
+          return;
+        }
+        
+        this.isDeleting = true;
+        setTimeout(() => this.type(), this.backDelay);
+        return;
+      }
+    }
+    
+    const typeSpeed = this.isDeleting ? this.backSpeed : this.speed;
+    setTimeout(() => this.type(), typeSpeed);
+  }
+}
+
+// 初期化
+document.addEventListener('DOMContentLoaded', () => {
+  const typingElements = document.querySelectorAll('.typing');
+  typingElements.forEach(element => {
+    new IType(element, {
+      texts,
+      speed,
+      backSpeed,
+      backDelay,
+      startDelay,
+      loop
+    });
+  });
+});
+</script>
+
+<style lang="scss">
+    @import '../styles/vars.scss';
+.typing-container {
+  display: inline-flex;
+  align-items: center;
+  font-family: "PixelMplus12", monospace;
+  color: #fff;
+  font-size: 1.6rem;
+
+  @include max-screen($bp-sp) {
+    font-size: 1.4rem;
+  }
+}
+
+.cursor {
+  animation: blink 1s infinite;
+  margin-left: 2px;
+  font-size: 1.6rem;
+  @include max-screen($bp-sp) {
+    font-size: 1.2rem;
+  }
+  
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+</style>

@@ -1,6 +1,9 @@
 ---
+import TypingText from '../components/TypingText.astro';
+import PartyFollow from '../components/PartyFollow';
 import Layout from '../layouts/Layout.astro';
 import { getBlogs } from '../lib/microcms';
+import "nes.css/css/nes.min.css";
 
 try {
     const response = await getBlogs({ limit: 6 });
@@ -25,59 +28,225 @@ const { contents: blogs } = await getBlogs({ limit: 6 });
 ---
 
 <Layout pageId='top' title='my portfolio' description='尾崎幸喜のポートフォリオサイトです'>
+    <PartyFollow client:only="react" />
   <!-- MV Section -->
-  <section id="mv" class="mv section">
-      <div class="mv__content l-inner">
+  <section id="mv" class="mv">
+      <div class="mv__wrap">
+          <div class="mv__ttl">
+              <img src="../assets/images/top/mv.png" alt="">
+          </div>
+          <div class="mv__text">
+              <img src="../assets/images/top/mv02.png" alt="">
+          </div>
           
-          <div id="lottie-animation" class="mv__animation">
-          </div>
-          <div class="mv__wrap">
-            <h1>「作ってよかった」を実感する<br>ホームページ</h1>
-            <p class="mv__text">フロントエンド開発で、<br>あなたのブランドを最大限に引き立てます</p>
-
-          </div>
+          <span class="mv__scroll font-pixel">
+            scroll start.
+          </span>
 
       </div>
   </section>
 
-  <!-- About Section -->
-  <section id="about" class="about section">
-      <div class="l-inner">
-          <h2 class="section__title">About</h2>
-          <div class="about__content">
-              <div class="about__text">
-                  <p>大阪府大阪市を拠点にホームぺージ制作をしている<br>フロントエンドエンジニアです。</p>
-                  <br>
-                  <p>ホームぺージは完成してから育てていく必要があります。<br>
-                    お客様の想い・情報をホームページで形にした後、<br>
-                    更新作業や改善サポートを行いますので、一貫してお任せいただくことができます。</p>
-                    <br>
-                  <p>主な技術スタック：
-                  React, Next.js, Astro, TypeScript</p>
-              </div>
-              <div class="about__img profile-image">
-                <img src="../assets/images/top/profile.jpg" alt="">
-              </div>
-          </div>
-      </div>
-  </section>
+  <div class="intro">
+    <div class="l-inner">
+        <div class="b-wrap">
+            <TypingText 
+            texts={[
+                "*「thanks for coming my site.」",
+                "*「I am a Front-End Developer.」",
+                "*「Creating websites with passion.」"
+            ]}
+            speed={50}
+            backSpeed={25}
+            backDelay={2000}
+            startDelay={1000}
+            className="intro__text"
+            />    
+        </div>
 
+    </div>
+</div>
+
+  <section class="about section" id="about">
+    <div class="about__inner l-inner">
+        <div class="about__left">
+            <div class="sec-ttl">
+                <h2 class="sec-ttl-en">About</h2>
+                <span class="sec-ttl-ja">私について</span>
+            </div>
+            <p class="about__name font-pixel">尾崎 幸喜 - Koki Ozaki</p>
+            <p class="about__text">
+                1998年1月、京都府生まれ。大阪の大学を卒業後、実家の製造業にて約1年半、金属加工に従事しました。その後、エンジニアへの憧れからWeb開発を学び始め、2022年よりWeb業界でのアルバイトを通じて経験を積みました。<br>現在は大阪の企業でフロントエンドエンジニアとして勤務し、HTML/CSSやJavaScriptを活用したWebサイトの構築に取り組んでいます。
+            </p>
+            <div class="btn-A font-pixel is-pc-tab">
+                <a href="/profile" class="text sound-btn">ぷろふぃーる詳細</a>
+            </div>
+        </div>
+        <div class="about__right ">
+            <div class="about__container b-wrap">
+                <div class="about__head">
+                    <div class="about__img">
+                        <img src="../assets/images/top/profile.jpg" alt="">
+                    </div>
+                    <ul class="about__heart">
+                        <li><img src="../assets/images/common/heart-max.png" alt=""></li>
+                        <li><img src="../assets/images/common/heart-max.png" alt=""></li>
+                        <li><img src="../assets/images/common/heart-max.png" alt=""></li>
+                        <li><img src="../assets/images/common/heart-max.png" alt=""></li>
+                        <li><img src="../assets/images/common/heart-max.png" alt=""></li>
+                        <li><img src="../assets/images/common/heart-max.png" alt=""></li>
+                        <li><img src="../assets/images/common/heart-max.png" alt=""></li>
+                        <li><img src="../assets/images/common/heart-max.png" alt=""></li>
+                        <li><img src="../assets/images/common/heart-max.png" alt=""></li>
+                        <li><img src="../assets/images/common/heart-max.png" alt=""></li>
+                        <li><img src="../assets/images/common/heart-max.png" alt=""></li>
+                        <li><img src="../assets/images/common/heart-max.png" alt=""></li>
+                        <li><img src="../assets/images/common/heart-max.png" alt=""></li>
+                        <li><img src="../assets/images/common/heart-max.png" alt=""></li>
+                        <li><img src="../assets/images/common/heart-half.png" alt=""></li>
+                        <li><img src="../assets/images/common/heart-emp.png" alt=""></li>
+                        <li><img src="../assets/images/common/heart-emp.png" alt=""></li>
+                        <li><img src="../assets/images/common/heart-emp.png" alt=""></li>
+                        <li><img src="../assets/images/common/heart-emp.png" alt=""></li>
+                        <li><img src="../assets/images/common/heart-emp.png" alt=""></li>
+                    </ul>
+
+                </div>
+                <div class="profile">
+                    <div class="profile__grid">
+                        <div class="profile__wrap profile__wrap--01 b-wrap">
+                            <span class="profile__name font-pixel">こーき</span>
+                            <dl class="font-pixel">
+                                <dt>Lv：</dt>
+                                <dd>26</dd>
+                            </dl>
+                            <dl class="font-pixel">
+                                <dt>職業：</dt>
+                                <dd>えんじにあ</dd>
+                            </dl>
+                            <dl class="font-pixel">
+                                <dt>せいべつ：</dt>
+                                <dd>おとこ</dd>
+                            </dl>
+                            <dl class="font-pixel">
+                                <dt>性格：</dt>
+                                <dd>すばしっこい</dd>
+                            </dl>
+                            <dl class="font-pixel">
+                                <dt>経験値：</dt>
+                                <dd>3年</dd>
+                            </dl>
+                        </div>
+                        
+                        <div class="profile__wrap profile__wrap--02 b-wrap">
+                            <span class="profile__name font-pixel">そうび</span>
+                            <dl class="font-pixel">
+                                <dt>E　</dt>
+                                <dd>まっくぶっく</dd>
+                            </dl>
+                            <dl class="font-pixel">
+                                <dt>E　</dt>
+                                <dd>あいふぉん</dd>
+                            </dl>
+                            <dl class="font-pixel">
+                                <dt>E　</dt>
+                                <dd>あっぷるうぉっち</dd>
+                            </dl>
+                            <dl class="font-pixel">
+                                <dt>E　</dt>
+                                <dd>布の服</dd>
+                            </dl>
+                        </div>
+
+                        <div class="profile__wrap profile__wrap--03 b-wrap">
+                            <span class="profile__name font-pixel">つよさ</span>
+                            <dl class="font-pixel">
+                                <dt>HTML：</dt>
+                                <dd>262</dd>
+                            </dl>
+                            <dl class="font-pixel">
+                                <dt>CSS：</dt>
+                                <dd>258</dd>
+                            </dl>
+                            <dl class="font-pixel">
+                                <dt>JavaScript：</dt>
+                                <dd>234</dd>
+                            </dl>
+                            <dl class="font-pixel">
+                                <dt>React/Next.js：</dt>
+                                <dd>156</dd>
+                            </dl>
+                            <dl class="font-pixel">
+                                <dt>PHP：</dt>
+                                <dd>175</dd>
+                            </dl>
+                            <dl class="font-pixel">
+                                <dt>MySQL：</dt>
+                                <dd>149</dd>
+                            </dl>
+                            <dl class="font-pixel">
+                                <dt>Node.js：</dt>
+                                <dd>153</dd>
+                            </dl>
+                            <dl class="font-pixel">
+                                <dt>Webpack/vite：</dt>
+                                <dd>173</dd>
+                            </dl>
+                            <dl class="font-pixel">
+                                <dt>API：</dt>
+                                <dd>149</dd>
+                            </dl>
+                            <dl class="font-pixel">
+                                <dt>WordPress：</dt>
+                                <dd>217</dd>
+                            </dl>
+                            <dl class="font-pixel">
+                                <dt>Git/GitHub：</dt>
+                                <dd>233</dd>
+                            </dl>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="btn-A font-pixel is-sp">
+                <a href="/profile" class="text sound-btn">ぷろふぃーる詳細</a>
+            </div>
+        </div>
+    </div>
+
+  </section>
   <!-- Services Section -->
   <section id="service" class="service section">
       <div class="l-inner">
-          <h2 class="section__title">Service</h2>
+        <div class="sec-ttl">
+            <h2 class="sec-ttl-en">Service</h2>
+            <span class="sec-ttl-ja">さーびす</span>
+        </div>
           <div class="service__grid">
-              <div class="service__card">
+              <div class="service__card b-wrap">
                   <h3>Webサイト制作</h3>
-                  <p>しっかりヒアリングを行い、魅力的なwebサイト制作をいたします。</p>
+                  <div class="service__img">
+                    <img src="./assets/images/top/service01.png" alt="">
+                  </div>
+                  <p>レスポンシブデザインはもちろん、あなたのお店や会社の魅力を伝える、見やすいホームページをお作りします。<br>
+                    コーディングスピードにはかなりの自信がありますので、最速で納品いたします。
+                </p>
               </div>
-              <div class="service__card">
-                  <h3>Webサイト修正</h3>
-                  <p>Webサイトの改善や新規ページを増やしたいなどの対応をいたします。</p>
+              <div class="service__card b-wrap">
+                  <h3>CMS構築/導入</h3>
+                  <div class="service__img">
+                    <img src="./assets/images/top/service02.svg" alt="">
+                  </div>
+                  <p>WordPressなどの仕組みを導入し、自分で簡単に更新できるホームページを提供します。<br>
+                    更新の手間を減らして、いつでも最新情報を発信できます。
+                  </p>
               </div>
-              <div class="service__card">
+              <div class="service__card b-wrap">
                   <h3>その他・ご相談</h3>
-                  <p>Webサイト制作での不安やデザインに関するご相談を受け付けています。</p>
+                  <div class="service__img">
+                    <img src="./assets/images/top/service03.png" alt="">
+                  </div>
+                  <p>Webサイト制作での不安やデザインに関するご相談を受け付けています。<br>「こんなこと相談してもいいのかな？」と思う内容でも、ぜひお気軽にお問い合わせください。柔軟に対応いたします！</p>
               </div>
           </div>
       </div>
@@ -86,7 +255,10 @@ const { contents: blogs } = await getBlogs({ limit: 6 });
   <!-- Blog Section -->
 <section id="blog" class="blog section">
   <div class="l-inner">
-      <h2 class="section__title">Blog</h2>
+    <div class="sec-ttl">
+        <h2 class="sec-ttl-en">Blog</h2>
+        <span class="sec-ttl-ja">ぶろぐ</span>
+    </div>
       <div class="blog__grid">
           {blogs.map((blog) => (
               <article class="blog__card">
@@ -135,9 +307,9 @@ const { contents: blogs } = await getBlogs({ limit: 6 });
           ))}
       </div>
       <div class="blog__more">
-          <a href="/blog" class="btn-A">
-              <span class="text">View All</span>
-          </a>
+          <div class="btn-A font-pixel">
+              <a href="/blog" class="text sound-btn">いちらんを見る</a>
+          </div>
       </div>
   </div>
 </section>
@@ -146,7 +318,10 @@ const { contents: blogs } = await getBlogs({ limit: 6 });
   <!-- Works Section -->
   <section id="work" class="work section">
     <div class="l-inner">
-        <h2 class="section__title">Works</h2>
+        <div class="sec-ttl">
+            <h2 class="sec-ttl-en">Work</h2>
+            <span class="sec-ttl-ja">じっせき</span>
+        </div>
         <div class="work__grid">
             <div class="work__card">
                 <a href="https://smile104.net/" target="_blank" class="work__link">
@@ -183,10 +358,10 @@ const { contents: blogs } = await getBlogs({ limit: 6 });
         </div>
 
         <div class="work__more">
-          <a href="/blog" class="btn-A">
-              <span class="text">View All</span>
-          </a>
-      </div>
+            <div class="btn-A btn-A--white font-pixel">
+                <a href="/work" class="text sound-btn">いちらんを見る</a>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -201,67 +376,148 @@ const { contents: blogs } = await getBlogs({ limit: 6 });
   --color-primary-light: #a77cff;  // 明るい緑
   --color-primary-dark: #a77cff;   // 暗い緑
   --color-accent: #c6aaff;      // アクセントの薄緑
-  --color-text: #333333;        // 文字色
+  --color-text: #fff;        // 文字色
   --color-text-light: #666666;  // 薄い文字色
   --color-background: #FFFFFF;  // 背景色
   --color-gray: #F5F5F5;       // グレー背景
 }
 
+body {
+    // background: #161860;
+}
+
+
   /* MV Section */
   .mv {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      // background: linear-gradient(45deg, var(--color-primary), var(--color-primary-light));
-      color: white;
-      text-align: center;
-      padding: 10rem 0;
-      height: 50vh;
+    color: white;
+    text-align: center;
+    height: 100vh;
+    height: calc(100vh - 6rem - 3px);
+    width: 100%;
+    background: #000;
+    overflow: hidden; // アニメーション要素がはみ出ないように
 
-      &__content {
+    &__wrap {
         display: flex;
+        flex-direction: column;
+        gap: 6rem;
+        justify-content: center;
         align-items: center;
+        width: 90%;
+        margin: 0 auto;
+        height: 100%;
         position: relative;
-      }
-      h1 {
-          font-size: 2.8rem;
-          margin-bottom: 1rem;
-      }
-      &__text {
-          font-size: 1.5rem;
-      }
 
-      &__animation {
-        width: 70%;
-        left: -6rem;
-        position: relative;
-      }
+        @include max-screen($bp-sp) {
+            gap: 4rem;
+        }
+    }
 
-      &__wrap {
-        width: 50%;
-        margin-left: auto;
-        background: linear-gradient(45deg, var(--color-primary), var(--color-primary-light));
+    &__ttl {
+        width: 100%;
+        opacity: 0; // 初期状態は非表示
+        transform: translateY(-50px); // 上から降りてくるように
+        img {
+            width: 100%;
+        }
+    }
+
+    &__text {
+        width: 40rem;
+        opacity: 0; // 初期状態は非表示
+
+        @include max-screen($bp-sp) {
+            width: 17rem;
+        }
+        img {
+            width: 100%;
+        }
+    }
+
+    &__img {
+        width: 80%;
+        margin: 0;
+    }
+
+    &__scroll {
         position: absolute;
-        top: 50%;
-        transform: translateY(0%);
-        right: -5rem;
-        z-index: 2;
-        padding: 3rem 2rem;
-        border-radius: 30px;
-      }
-  }
+        left: 50%;
+        bottom: 5rem;
+        transform: translateX(-50%);
+        color: #fff;
+        font-size: 2rem;
+        opacity: 0; // 初期状態は非表示
+        letter-spacing: 0.1em;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+
+        @include max-screen($bp-sp) {
+            font-size: 1.6rem;
+        }
+    }
+
+    .noise-effect {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        // background-image: url('/assets/images/noise.png');
+        opacity: 0.05;
+        pointer-events: none;
+        mix-blend-mode: overlay;
+    }
+
+    .scanlines {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            to bottom,
+            rgba(255,255,255,0) 0%,
+            rgba(255,255,255,0.1) 50%,
+            rgba(255,255,255,0) 100%
+        );
+        background-size: 100% 4px;
+        pointer-events: none;
+        animation: scanlines 10s linear infinite;
+    }
+}
+
+// スキャンラインアニメーション
+@keyframes scanlines {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 0 100%;
+    }
+}
 
 
 
   /* Common Section Styles */
   .section {
       padding: 8rem 2rem;
+
+      @include max-screen($bp-sp) {
+        padding: 5rem 2rem;
+      };
       &__title {
           color: var(--color-primary);
+          font-family: "PixelMplus12"!important;
           font-size: 4rem;
           text-align: center;
           margin-bottom: 3rem;
           font-weight: normal;
+          color: #000;
+          font-weight: bold;
+
+          @include max-screen($bp-sp) {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+          }
           &::after {
             content: '';
             display: block;
@@ -275,79 +531,269 @@ const { contents: blogs } = await getBlogs({ limit: 6 });
   }
 
 
-  .container {
-      max-width: 1200px;
-      margin: 0 auto;
-  }
-
-  /* About Section */
-  .about {
-      background: #fff;
-      &__content {
-        display: flex;
-          gap: 2rem;
-          align-items: center;
-      }
-    
-      &__text {
-          line-height: 1.8;
-          width: 70%;
-      }
-  }
 
 
-  .profile-image {
-      width: 23rem;
-      height: 23rem;
-      border-radius: 50%;
-      background: #eee;
-      margin: 0 auto;
-      overflow: hidden;
-      box-shadow: 5px 5px 15px -5px #777777;
 
-      img {
+.intro {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    height: 30rem;
+
+    @include max-screen($bp-sp) {
+        height: 15rem;
+    }
+    &__text {
+        color: #fff;
+    }
+
+    .l-inner {
+        position: relative;
+    }
+
+    .b-wrap {
+        text-align: center;
         width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-  }
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        @include max-screen($bp-sp) {
+            width: 80%;
+            padding: 1.5rem 1rem;
+        }
+    }
+}
+.about {
+    background: #fff;
+    color: #000;
+    &__inner {
+        display: flex;
+        justify-content: space-between;
+
+        @include max-screen($bp-sp) {
+            flex-direction: column;
+            gap: 3rem;
+        }
+        
+    }
+
+    &__container {
+        margin-bottom: 3rem;
+    }
+
+    &__right {
+        width: 48%;
+        transform: rotate(3deg);
+        position: relative;
+        right: -3rem;
+
+        @include max-screen($bp-sp) {
+            width: 100%;
+            transform: rotate(0);
+            position: static;
+        }
+        
+        img {
+            border-radius: 50%;
+        }
+    }
+
+    &__left {
+        width: 48%;
+        @include max-screen($bp-sp) {
+            width: 100%;
+        }
+    }
+
+    &__img {
+        width: 15rem;
+        margin: 0 auto 2rem;
+        @include max-screen($bp-sp) {
+            width: 10rem;
+            margin-bottom: 1.5rem;
+        }
+    }
+
+    &__head {
+        display: flex;
+        align-items: flex-start;
+        align-items: center;
+        gap: 2rem;
+        @include max-screen($bp-sp) {
+            gap: 1.5rem;
+        }
+    }
+
+    &__heart {
+        display: flex;
+        width: 70%;
+        margin: 0 auto 2rem;
+        flex-wrap: wrap;
+        li {
+            width: calc(100% * 1 / 10);
+        }
+    }
+
+    &__name {
+        font-size: 3.8rem;
+        margin-top: 5rem;
+        margin-bottom: 2rem;
+        font-weight: bold;
+        @include max-screen($bp-sp) {
+            font-size: 2.4rem;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+        }
+    }
+
+    &__text {
+        font-size: 1.8rem;
+        margin-bottom: 4rem;
+        @include max-screen($bp-sp) {
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+        }
+    }
+}
+
+.profile {
+    dl {
+        font-size: 1.4rem;
+        display: flex;
+        align-items: center;
+        color: #fff;
+        margin-bottom: 0;
+        @include max-screen($bp-sp) {
+            font-size: 1.2rem;
+        }
+    }
+
+    dt {
+        font-weight: normal;
+    }
+
+    &__name {
+        font-size: 1.8rem;
+        display: inline-block;
+        background: #000;
+        color: #fff;
+        padding: 0 5px;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        white-space: nowrap;
+
+        @include max-screen($bp-sp) {
+            font-size: 1.4rem;
+        }
+    }
+
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        grid-column-gap: 0px;
+        grid-row-gap: 0px;
+        gap: 2rem;
+
+        @include max-screen($bp-sp) {
+            gap: 1rem;
+        }
+    }
+    &__wrap {
+        padding: 2rem 2rem 1rem;
+        position: relative;
+
+        @include max-screen($bp-sp) {
+            padding: 1rem;
+        }
+
+        &--01 {
+            grid-area: 1 / 1 / 2 / 2;
+        }
+        &--02 {
+            grid-area: 2 / 1 / 3 / 2;
+        }
+        &--03 {
+            grid-area: 1 / 2 / 3 / 3;
+
+            dl {
+                justify-content: right;
+            }
+        }
+    }
+}
+
 
   /* Services Section */
   .service {
-      background: #f3f3fe;
+    //   background: #f3f3fe;
+    background: #000;
+    color: #fff;
       &__grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
+          background: #000;
+          gap: 3rem;
+
+          @include max-screen($bp-sp) {
+            grid-template-columns: 1fr;
+          }
       }
     
       &__card {
-          padding: 2rem 3rem;
-          border-right: 1px solid rgba(46, 125, 50, 0.1);
+          padding: 4rem 3rem 2rem;
           transition: all 0.3s ease;
+        position: relative;
 
-          &:last-of-type {
-            border: none;
-          }
+        @include max-screen($bp-sp) {
+            padding: 2rem 1.5rem;
+        }
+          
           h3 {
               font-size: 2rem;
-              color: var(--color-primary);
+              color: #dcb434;
               text-align: center;
-              margin-bottom: 2rem;
               padding-bottom: 2rem;
               position: relative;
+              background: #000;
+              display: inline-block;
+              padding: 0 1rem;
+              position: absolute;
+              top: 0;
+              left: 50%;
+              white-space: nowrap;
+              transform: translate(-50%, -50%);
 
-              &::after {
-                content: "";
-                width: 5rem;
-                height: 2px;
-                background: var(--color-accent);
-                position: absolute;
-                bottom: 0;
-                left: 50%;
-                transform: translateX(-50%);
+              @include max-screen($bp-sp) {
+                font-size: 1.6rem;
 
               }
+
+            
           }
+
+          p {
+            font-size: 1.6rem;
+            @include max-screen($bp-sp) {
+                font-size: 1.2rem;
+            }
+          }
+      }
+
+      &__img {
+        height: 10rem;
+        text-align: center;
+        margin-bottom: 2rem;
+
+        @include max-screen($bp-sp) {
+            height: 7rem;
+            margin-bottom: 1.5rem;
+        }
       }
     
   }
@@ -355,22 +801,37 @@ const { contents: blogs } = await getBlogs({ limit: 6 });
 
   /* Blog Section */
   .blog {
-    background: #fff;
+    // background: #fff;
     
     &__grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 4rem;
         margin-bottom: 5rem;
+
+        @include max-screen($bp-sp) {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
     }
     
     &__card {
         background: #fff;
         transition: all 0.3s ease;
+        background-color: #000;
+        box-shadow: 0 0 0 3px #000;
+        border: 2px solid #fff;
+        border-radius: 5px;
         
         &:hover {
+            border-color: #dcb434;
             .blog__thumbnail img {
                 transform: scale(1.03);
+            }
+
+            .blog__title {
+                color: #dcb434;
             }
         }
     }
@@ -399,7 +860,10 @@ const { contents: blogs } = await getBlogs({ limit: 6 });
     }
     
     &__content {
-        padding: 1.5rem 0;
+        padding: 1.5rem 1rem;
+        @include max-screen($bp-sp) {
+            padding: 1rem;
+        }
     }
     
     &__categories {
@@ -410,10 +874,12 @@ const { contents: blogs } = await getBlogs({ limit: 6 });
     &__category {
         font-size: 1.3rem;
         letter-spacing: 0.05em;
-        color: #666;
-        border: 1px solid #999;
+        color: #fff;
+        border: 1px solid #fff;
         padding: 0 0.75rem;
-        color: #999;
+        @include max-screen($bp-sp) {
+            font-size: 1rem;
+        }
     }
 
     &__header {
@@ -421,6 +887,11 @@ const { contents: blogs } = await getBlogs({ limit: 6 });
       align-items: center;
       justify-content: space-between;
       margin-bottom: 1.5rem;
+      @include max-screen($bp-sp) {
+        margin-bottom: 1rem;
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
     
     &__title {
@@ -428,12 +899,17 @@ const { contents: blogs } = await getBlogs({ limit: 6 });
         font-weight: 600;
         margin-bottom: 0.75rem;
         line-height: 1.4;
+        color: #fff;
+
+        @include max-screen($bp-sp) {
+            font-size: 1.3rem;
+        }
     }
     
     &__excerpt {
         font-size: 1rem;
         line-height: 1.6;
-        color: #666;
+        color: #fff;
         margin-bottom: 1rem;
         display: -webkit-box;
         -webkit-line-clamp: 2;
@@ -444,54 +920,48 @@ const { contents: blogs } = await getBlogs({ limit: 6 });
     
     &__date {
         font-size: 1rem;
-        color: #999;
+        color: #fff;
         letter-spacing: 0.05em;
     }
 }
 
-.more-link {
-    display: inline-block;
-    background: var(--color-primary);
-    border: 1px solid #111;
-    color: #111;
-    padding: 1rem 3rem;
-    font-size: 0.875rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    
-    &:hover {
-      background: var(--color-primary-dark);
-        color: #fff;
-    }
-}
 
 
 
   /* Works Section */
   .work {
-    background: #f3f3fe;
+    background: #000;
+    color: #fff;
 
     &__grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 4rem;
         margin-bottom: 4rem;
+
+        @include max-screen($bp-sp) {
+            gap: 1.5rem;
+        }
     }
     
     &__card {
+        background-color: #000;
+        box-shadow: 0 0 0 3px #000;
+        border: 2px solid #fff;
+        border-radius: 5px;
         overflow: hidden;
         transition: all 0.3s ease;
+        padding: 3px;
         
         &:hover {
+            border-color: #dcb434;
             
             .work__thumbnail img {
                 transform: scale(1.03);
             }
 
             .work__title {
-              color: var(--color-primary);
+              color: #dcb434;
             }
         }
     }
@@ -500,6 +970,8 @@ const { contents: blogs } = await getBlogs({ limit: 6 });
         text-decoration: none;
         color: inherit;
         display: block;
+        border-radius: 5px;
+        overflow: hidden;
     }
     
     &__thumbnail {
@@ -517,6 +989,9 @@ const { contents: blogs } = await getBlogs({ limit: 6 });
     
     &__content {
         padding: 2rem;
+        @include max-screen($bp-sp) {
+            padding: 1rem;
+        }
     }
     
     &__title {
@@ -524,6 +999,10 @@ const { contents: blogs } = await getBlogs({ limit: 6 });
         font-weight: 600;
         line-height: 1.4;
         transition: 0.3s;
+
+        @include max-screen($bp-sp) {
+            font-size: 1.3rem;
+        }
         
     }
     
@@ -531,6 +1010,11 @@ const { contents: blogs } = await getBlogs({ limit: 6 });
         font-size: 1.4rem;
         color: #666;
         margin-bottom: 1.5rem;
+
+        @include max-screen($bp-sp) {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
     }
     
     &__tags {
@@ -547,64 +1031,174 @@ const { contents: blogs } = await getBlogs({ limit: 6 });
         border: 1px solid #999;
         padding: 0 0.75rem;
         color: #999;
+
+        @include max-screen($bp-sp) {
+            font-size: 1rem;
+        }
     }
 }
 
 
   
 
-  /* Responsive Design */
-  @media (max-width: 768px) {
-      .about-content {
-          grid-template-columns: 1fr;
-      }
-
-      .services-grid {
-          grid-template-columns: 1fr;
-      }
-
-      .blog-grid {
-          grid-template-columns: 1fr;
-      }
-
-      .works-grid {
-          grid-template-columns: 1fr;
-      }
-
-      #mv h1 {
-          font-size: 2.5rem;
-      }
-
-      .section-title {
-          font-size: 2rem;
-      }
-  }
 </style>
 
 <script>
   import gsap from 'gsap';
+  import {
+  ScrollTrigger
+} from "gsap/ScrollTrigger";
 
-  document.addEventListener('DOMContentLoaded', function () {
-    var animation = lottie.loadAnimation({
-      container: document.getElementById('lottie-animation'),
-      renderer: 'svg',
-      loop: true,
-      autoplay: true,
-      path: '../assets/animations/mv-animation.json'
+  gsap.registerPlugin(ScrollTrigger);
+
+document.addEventListener('DOMContentLoaded', () => {
+    // メインのタイムライン作成
+    const tl = gsap.timeline({
+        defaults: {
+            ease: 'power2.out'
+        }
     });
 
-    gsap.fromTo('.mv__wrap', 
-      {
+    // タイトルのアニメーション
+    tl.fromTo('.mv__ttl', {
         opacity: 0,
-        y: 30
-      },
-      {
+        y: -50
+    }, {
         opacity: 1,
         y: 0,
-        duration: 1,
-        delay: 0.5, // Lottieアニメーションの後に表示
+        duration: 2,
         ease: 'power2.out'
-      }
-    );
+    })
+    
+    // サブテキストのアニメーション
+    .fromTo('.mv__text', {
+        opacity: 0,
+        scale: 0.9
+    }, {
+        opacity: 1,
+        scale: 1,
+        duration: 1.5,
+        ease: 'power2.out'
+    }, '+=0.25')  // タイトルアニメーション後、0.5秒待ってから開始
+
+    // スクロールテキストの点滅アニメーション
+    .fromTo('.mv__scroll', {
+        opacity: 0
+    }, {
+        opacity: 1,
+        duration: 0.1,
+        repeat: -1,
+        yoyo: true,
+        repeatDelay: 0.5
+    }, '+=0.25');  // サブテキストアニメーション後、1秒待ってから開始
+
+    // オプション：背景のフェードイン
+    gsap.fromTo('.mv', {
+        backgroundColor: 'rgba(0, 0, 0, 0)'
+    }, {
+        backgroundColor: 'rgba(0, 0, 0, 1)',
+        duration: 2
+    });
+
+    gsap.utils.toArray('.section').forEach(section => {
+  gsap.from(section, {
+    opacity: 0,
+    y: 30,
+    duration: 1,
+    scrollTrigger: {
+      trigger: section,
+      start: 'top 80%',
+      toggleActions: 'play none none reverse'
+    }
   });
+});
+
+// プロフィールカードのRPG風演出
+const profileTl = gsap.timeline({
+  scrollTrigger: {
+    trigger: '.about__container',
+    start: 'top 70%'
+  }
+});
+
+profileTl
+  .from('.about__img', {
+    scale: 0,
+    rotation: 360,
+    duration: 1,
+    ease: 'back.out(1.7)'
+  })
+  .from('.about__heart li', {
+    scale: 0,
+    opacity: 0,
+    duration: 0.3,
+    stagger: 0.1
+  })
+  .from('.profile__wrap dl', {
+    opacity: 0,
+    x: 30,
+    duration: 0.5,
+    stagger: 0.1
+  });
+
+  // サービスカードのゲーム風表示
+const serviceCards = gsap.utils.toArray('.service__card');
+serviceCards.forEach((card, i) => {
+  gsap.from(card, {
+    opacity: 0,
+    scale: 0.8,
+    duration: 0.8,
+    delay: i * 0.2,
+    scrollTrigger: {
+      trigger: card,
+      start: 'top 80%'
+    },
+    ease: 'back.out(1.7)'
+  });
+});
+
+
+
+// 各セクションタイトルに対して処理
+document.querySelectorAll('.sec-ttl').forEach(titleSection => {
+  // メインタイトルのテキストを1文字ずつ分割
+  const mainTitle = titleSection.querySelector('.sec-ttl-en');
+  const text = mainTitle.textContent;
+  mainTitle.textContent = '';
+  
+  // 1文字ずつspanで包む
+  text.split('').forEach(char => {
+    const span = document.createElement('span');
+    span.textContent = char;
+    span.style.opacity = '0';
+    span.style.display = 'inline-block';
+    mainTitle.appendChild(span);
+  });
+
+  const chars = mainTitle.querySelectorAll('span');
+  const subtitle = titleSection.querySelector('.sec-ttl-ja');
+
+  // アニメーションの設定
+  gsap.timeline({
+    scrollTrigger: {
+      trigger: titleSection,
+      start: 'top 80%',
+    }
+  })
+  .to(chars, {
+    opacity: 1,
+    duration: 0.1,
+    stagger: 0.1,
+    ease: 'none'
+  })
+  .to(subtitle, {
+    opacity: 1,
+    duration: 0.8,
+    ease: 'power2.out'
+  }, '>-0.5');
+});
+
+});
+
+
 </script>

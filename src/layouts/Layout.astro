@@ -54,10 +54,35 @@ const currentPath = new URL(Astro.request.url).pathname;
 </html>
 
 <style is:global lang="scss">
+
+    @font-face {
+        font-family: 'PixelMplus12';
+        src: url('/assets/font/PixelMplus12-Regular.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'PixelMplus12';
+        src: url('/assets/font/PixelMplus12-Bold.ttf') format('truetype');
+        font-weight: bold;
+        font-style: normal;
+        font-display: swap;
+    }
+    @font-face {
+        font-family: 'emulogic';
+        src: url('/assets/font/emulogic.ttf') format('truetype');
+        font-weight: bold;
+        font-style: normal;
+        font-display: swap;
+    }
+
     @import '../styles/vars.scss';
     @import '../styles/html5doctor.scss';
     @import '../styles/reset.scss';
     @import '../styles/common.scss';
+    
 
     // Root styles
     html {
@@ -75,6 +100,7 @@ const currentPath = new URL(Astro.request.url).pathname;
 
     body {
         background: #fff;
+        // background: #161860;
         font-size: 1.6rem;
         font-family: "Noto Sans Japanese", "ヒラギノ角ゴ ProN", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
         line-height: 1.5;
@@ -82,6 +108,20 @@ const currentPath = new URL(Astro.request.url).pathname;
         @include max-screen($bp-sp) {
             font-size: 1.4rem;
         }
+    }
+
+    .font-pixel {
+        font-family: "PixelMplus12"!important;
+    }
+
+    .fp {
+        font-family: 'emulogic', sans-serif;
+    }
+
+    .xl-inner {
+        width: 90%;
+        margin: 0 auto;
+        max-width: 1200px;
     }
     .l-inner {
         margin: 0 auto;
@@ -116,78 +156,245 @@ const currentPath = new URL(Astro.request.url).pathname;
         margin-bottom: 2rem;
     }
 
+
     .btn-A {
-        width: 100%;
-        max-width: 20rem;
-        height: 5.5rem;
-        padding: 0 2rem;
-        position: relative;
-        text-decoration: none;
-        outline: none;
-        display: flex;
-        border-radius: 1000px;
-        background-color: #fff;
-        transition: all 0.3s ease, background-color 0.3s;
-        overflow: hidden;
-        background-size: 400%;
-        border: 3px solid #8749ff;
-        color: #8749ff;
+        width: 28rem;
+        border-bottom: 1px solid #ccc;
         margin: 0 auto;
 
-        &::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -1rem;
-            z-index: 2;
-            transform: scaleX(0);
-            transform-origin: 0 50%;
-            width: 110%;
-            height: inherit;
-            border-radius: inherit;
-            background-color: #8749ff;
-            transition: all 0.3s ease;
+        @include max-screen($bp-sp) {
+            width: 80%;
+
         }
 
-        &::after {
-            content: "";
-            position: absolute;
-            top: calc(50% - 4px);
-            right: 2rem;
-            z-index: 3;
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            background-color: #8749ff;
-            border-radius: 2rem;
-            transition: all 0.3s ease;
-        }
+        a {
+            color: #000;
+            padding: 2rem 1rem;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            
+            @include max-screen($bp-sp) {
+                font-size: 1.4rem;
+                padding: 1.5rem 1rem;
+            }
 
-        .text {
-            position: relative;
-            position: absolute;
-            top: 50%;
-            left: 2rem;
-            transform: translateY(-50%);
-            transition: all 0.3s ease;
-            z-index: 2;
-        }
-
-        &:hover {
             &::before {
-                transform: scaleX(1);
+                content: "";
+                margin-right: 1.5rem;
+                width: 1rem;
+                height: 1.6rem;
+                display: block;
+                background: url(../assets/images/common/pointer-black.webp) no-repeat center center;
+                background-size: cover;
             }
 
-            .text {
+            &:hover {
+                background: #000;
                 color: #fff;
+                text-decoration: none;
+
+                &::before {
+                    background: url(../assets/images/common/pointer-white.webp) no-repeat center center;
+                    background-size: cover;
+                }
+            }
+        }
+
+        &--white {
+            a {
+            color: #fff;
+            
+
+            &::before {
+                background: url(../assets/images/common/pointer-white.webp) no-repeat center center;
+                background-size: cover;
             }
 
-            &::after {
-                background-color: #fff;
-                transform-origin: center;
-                transform: scale(2);
+            &:hover {
+                background: #fff;
+                color: #000;
+                text-decoration: none;
+
+                &::before {
+                    background: url(../assets/images/common/pointer-black.webp) no-repeat center center;
+                    background-size: cover;
+                }
+            }
+        }
+        }
+    }
+
+    .page-kv {
+        margin-bottom: 10rem;
+
+        @include max-screen($bp-sp) {
+            margin-bottom: 5rem;
+        }
+
+        &__wrap {
+            margin-left: 5rem;
+            margin-right: 5rem;
+            border-top: 5px solid #000;
+            border-bottom: 5px solid #000;
+            position: relative;
+            padding: 4rem 0;
+            height: 32rem;
+            display: flex;
+            align-items: center;
+
+            @include max-screen($bp-sp) {
+                margin-left: 2rem;
+                margin-right: 2rem;
+                border-width: 3px;
+                padding: 2rem 0;
+                height: auto;
+            }
+
+            div {
+                display: flex;
+                align-items: center;
+
+                @include max-screen($bp-sp) {
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+            }
+
+            h2 {
+                flex-basis: 50%;
+                font-size: 10.6rem;
+                margin: 0;
+                color: #000;
+                font-weight: 700;
+                line-height: 1.1;
+
+                @include max-screen($bp-sp) {
+                    font-size: 5rem;
+                    flex-basis: 100%;
+                    text-align: left;
+                }
+            }
+
+            h3 {
+                writing-mode: vertical-rl;
+                font-size: 30px;
+                position: absolute;
+                right: -45px;
+                top: calc((100% - 150px) / 2);
+                margin: 0;
+                color: #000;
+
+                @include max-screen($bp-sp) {
+                    display: none;
+                }
+            }
+        }
+
+        &__text {
+            flex-basis: 50%;
+            margin: 0;
+            line-height: 2!important;
+            font-size: 1.8rem!important;
+            overflow: visible!important;
+            
+            @include max-screen($bp-sp) {
+                flex-basis: 100%;
+                font-size: 1.4rem!important;
+                margin-top: 2rem;
             }
         }
     }
+
+    .b-wrap {
+    border-radius: 5px;
+    background: #fff;
+    background-color: #000;
+    box-shadow: 0 0 0 4px #000;
+    border: 2px solid #fff;
+    padding: 3.2rem;
+
+    @include max-screen($bp-sp) {
+        padding: 2rem 1rem;
+    }
+}
+
+.sec-ttl {
+    margin-bottom: 4rem;
+    @include max-screen($bp-sp) {
+        margin-bottom: 2rem;
+    }
+}
+
+.sec-ttl-en {
+    font-family: 'emulogic', sans-serif;
+
+    font-size: 6.2rem;
+    line-height: 1.5;
+
+    @include max-screen($bp-sp) {
+        font-size: 3.6rem;
+    }
+
+    span {
+        display: inline-block;
+    }
+}
+
+.sec-ttl-ja {
+    font-family: "PixelMplus12";
+    line-height: 1.5;
+    font-size: 2rem;
+    opacity: 0;
+    @include max-screen($bp-sp) {
+        font-size: 1.6rem;
+    }
+}
 </style>
 
+<script>
+
+import gsap from 'gsap';
+  import {
+  ScrollTrigger
+} from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const links = document.querySelectorAll('.sound-btn');
+  
+  links.forEach(link => {
+    link.addEventListener('click', async (e) => {
+      if (link.href && !link.href.startsWith('#')) {  // 実際のリンクの場合のみ
+        e.preventDefault();  // デフォルトの遷移をキャンセル
+        
+        // クリックアニメーション
+        gsap.to(link.parentElement, {
+          scale: 0.95,
+          duration: 0.1,
+          yoyo: true,
+          repeat: 1
+        });
+
+        try {
+          // 効果音の再生
+          const clickSound = new Audio('../assets/sounds/click.mp3');
+          clickSound.volume = 0.2;
+          await clickSound.play();
+
+          // 効果音の再生時間を考慮して遅延を設定
+          setTimeout(() => {
+            window.location.href = link.href;
+          }, 1050); // 200ミリ秒の遅延（効果音の長さに応じて調整）
+
+        } catch (error) {
+          // 効果音の再生に失敗した場合は直接遷移
+          window.location.href = link.href;
+        }
+      }
+    });
+  });
+
+    })
+</script>

@@ -8,53 +8,180 @@ const { contents: blogs } = await getBlogs();
 
 <Layout 
     pageId='profile' 
-    title='プロフィール' 
-    description='OZAKI KOKIのプロフィールページです'
+    title='ぷろふぃーる' 
+    description='おざきこうきの ぷろふぃーるです'
 >
     <section class="profile">
-        <div class="l-inner">
-            <h2 class="section__title p-ttl">Profile</h2>
-            <div class="profile__content">
-                <div class="profile__text">
-                    <p>
-                        京都府出身のエンジニア。大学で経営学を学んだのち、<br>
-                        実家が営む製造業で金型加工に従事。その後ITの技術にひかれ、24歳でIT業界へ転職。<br>
-                        コーダーとしてアルバイトからキャリアをスタートし、<br>Webページ作成、CMS構築など、フロントエンドの業務を経験してきました。
+        <div class="page-kv">
+            <div class="page-kv__wrap">
+                <div>
+                    <h2>私に<br>ついて</h2>
+                    <p class="page-kv__text">
+                        製造業からWeb開発の世界へ。モノづくりの経験を活かし、使う人の気持ちに寄り添ったWebサイト制作を心がけています。フロントエンド開発を専門として、デザインと技術の両面からユーザー体験の向上に取り組んでいます。日々新しい技術に触れ、成長を続けるエンジニアとしての私の経歴と、大切にしている考え方をご紹介します。
                     </p>
-                    <p>依頼して良かった！と皆様から言っていただけるように<br>
-                        コミュニケーションを大切にしています。</p>
                 </div>
+                <h3 class="fp">ABOUT</h3>
+            </div>
+        </div>
 
-                <!-- スキルセクション -->
-                <div class="profile__skills">
-                    <h3 class="profile__subtitle">Skills</h3>
-                    <div class="skills-grid">
-                        <div class="skill-category">
-                            <h4>Frontend</h4>
-                            <ul>
-                                <li>HTML5/CSS3</li>
-                                <li>JavaScript</li>
-                                <li>React/Next.js</li>
-                                <li>Astro</li>
-                                <li>Tailwind CSS/SCSS</li>
-                            </ul>
+        <div class="introduction">
+            <div class="l-inner">
+                <div class="introduction__content">
+                    <div class="introduction__text">
+                        <div class="sec-ttl">
+                            <h2 class="sec-ttl-en">Introduction</h2>
                         </div>
-                        <div class="skill-category">
-                            <h4>Backend</h4>
-                            <ul>
-                                <li>Node.js</li>
-                                <li>PHP</li>
-                                <li>MySQL</li>
-                            </ul>
+                        <p class="introduction__description">
+                            京都出身のフロントエンドエンジニア。<br>
+                            旅行と映画が好きです。<br>
+                            製造業での経験を活かし、ユーザー目線でのモノづくりを大切にしています。<br>
+                            2022年より憧れだったWEBの世界に挑戦し、<br>現在は大阪の制作会社でフロントエンドとして日々奮闘中。<br>
+                            
+                            新しい技術への探究心と、使う人の気持ちに寄り添った開発を心がけています。
+                        </p>
+                    </div>
+                    <div class="introduction__image">
+                        <img src="../assets/images/top/profile.jpg" alt="プロフィール画像" class="profile-image">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="strengths">
+            <div class="l-inner">
+                <div class="sec-ttl">
+                    <h2 class="sec-ttl-en">Strengths</h2>
+
+                </div>
+                <div class="strengths__circles">
+                    <div class="strengths__circle">
+                        <svg class="circle-svg" viewBox="0 0 100 100">
+                            <circle class="circle-path" cx="50" cy="50" r="49" stroke="black" fill="none" stroke-width="1" />
+                        </svg>
+                        <span>共感し、寄り添う</span>
+                    </div>
+                    <div class="strengths__circle">
+                        <svg class="circle-svg" viewBox="0 0 100 100">
+                            <circle class="circle-path" cx="50" cy="50" r="49" stroke="black" fill="none" stroke-width="1" />
+                        </svg>
+                        <span>なにごとにも<br>チャレンジする</span>
+                    </div>
+                    <div class="strengths__circle">
+                        <svg class="circle-svg" viewBox="0 0 100 100">
+                            <circle class="circle-path" cx="50" cy="50" r="49" stroke="black" fill="none" stroke-width="1" />
+                        </svg>
+                        <span>想像・創造力</span>
+                    </div>
+                </div>
+                <div class="strengths__grid">
+                    <div class="strength-card">
+                        <h3 class="strength-card__title"><span>共感し、寄り添う</span></h3>
+                        <p class="strength-card__text">
+                            相手の気持ちを理解し、共感することを大切にしています。コミュニケーションの場において、相手のことを正しく理解し、良好な関係づくりができます。前職ではお客様と接する際、会話の中で「何を求めているか、どんな想いを乗せているのか」を察して理解し、それを解決できるようなご提案を心掛けました。この経験で培ってきた能力を活かし、クライアントさまやプロジェクトのメンバーとの円滑なコミュニケーションに貢献できます。
+                        </p>
+                    </div>
+                    <div class="strength-card">
+                        <h3 class="strength-card__title">最新技術への探究心</h3>
+                        <p class="strength-card__text">
+                            新しいことにチャレンジすることが好きです。既存の枠にとらわれることなく、柔軟な発想力と行動力で、常に前進し続けます。近年、様々な技術の発達と利用が加速し、移り変わっています。その中でも、未知への好奇心と探求心を忘れず、常に自己変革・新たな分野へのチャレンジに取り組む姿勢を大切にしていきたいと思います。
+                        </p>
+                    </div>
+                    <div class="strength-card">
+                        <h3 class="strength-card__title">想像・創造力</h3>
+                        <p class="strength-card__text">
+                            豊かな想像力は、私の大きな強みの一つです。既成概念にとらわれることなく、自由な発想力で新しい可能性を見出すことができます。流行の移り変わりが激しいWeb業界においても、最新サイトのチェック、モダンな技術のキャッチアップなどといった日頃のインプットを能動的に行い、これまでにない発想や解決策をアウトプットすることで、常に前進し続けられるよう心がけています。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-content">
+            <div class="l-inner">
+
+
+
+                <!-- 沿革マップウィンドウ -->
+                <div class="history-window dq-window">
+                    <h2 class="window-title">ぼうけんの きろく</h2>
+                    <div class="timeline-container">
+                        <div class="timeline">
+                            <div class="map-point" data-year="1997">
+                                <div class="hero-icon">
+                                    <img src="../assets/images/about/hero.png" alt="勇者" width="32" height="32">
+                                </div>
+                                <div class="point-content">
+                                    <div class="point-marker">◆</div>
+                                    <div class="point-info">
+                                        <div class="point-year">1997ねん</div>
+                                        <h3 class="point-title">きょうとに うまれる</h3>
+                                        <p class="point-detail">ぼうけんが はじまった！</p>
+                                    </div>
+                                </div>
+                            </div>
+                
+                            <div class="map-point" data-year="2016">
+                                <div class="hero-icon">
+                                    <img src="../assets/images/about/hero.png" alt="勇者" width="32" height="32">
+                                </div>
+                                <div class="point-content">
+                                    <div class="point-marker">◆</div>
+                                    <div class="point-info">
+                                        <div class="point-year">2016ねん</div>
+                                        <h3 class="point-title">だいがくに にゅうがく</h3>
+                                        <p class="point-detail">けいえいがくを まなびはじめた</p>
+                                    </div>
+                                </div>
+                            </div>
+                
+                            <div class="map-point" data-year="2020">
+                                <div class="hero-icon">
+                                    <img src="../assets/images/about/hero.png" alt="勇者" width="32" height="32">
+                                </div>
+                                <div class="point-content">
+                                    <div class="point-marker">◆</div>
+                                    <div class="point-info">
+                                        <div class="point-year">2020ねん</div>
+                                        <h3 class="point-title">せいぞうぎょうに しゅうしょく</h3>
+                                        <p class="point-detail">きんぞくかこうの ぎじゅつを てにいれた！</p>
+                                    </div>
+                                </div>
+                            </div>
+                
+                            <div class="map-point" data-year="2021">
+                                <div class="hero-icon">
+                                    <img src="../assets/images/about/hero.png" alt="勇者" width="32" height="32">
+                                </div>
+                                <div class="point-content">
+                                    <div class="point-marker">◆</div>
+                                    <div class="point-info">
+                                        <div class="point-year">2022ねん</div>
+                                        <h3 class="point-title">えんじにあに てんしょく</h3>
+                                        <p class="point-detail">あたらしい ぼうけんが はじまった！</p>
+                                    </div>
+                                </div>
+                            </div>
+                
+                            <div class="map-point" data-year="2024">
+                                <div class="hero-icon">
+                                    <img src="../assets/images/about/hero.png" alt="勇者" width="32" height="32">
+                                </div>
+                                <div class="point-content">
+                                    <div class="point-marker">◆</div>
+                                    <div class="point-info">
+                                        <div class="point-year">げんざい</div>
+                                        <h3 class="point-title">フロントエンドエンジニアにとして</h3>
+                                        <p class="point-detail">ひびふんとうちゅう！</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="skill-category">
-                            <h4>Tools & Others</h4>
-                            <ul>
-                                <li>Git/GitHub</li>
-                                <li>WordPress</li>
-                                <li>microCMS</li>
-                                <li>Adobe XD/Figma</li>
-                            </ul>
+
+                        <!-- モバイル用ナビゲーション -->
+                        <div class="mobile-nav is-sp">
+                            <button class="prev-btn">←</button>
+                            <div class="slide-indicators"></div>
+                            <button class="next-btn">→</button>
                         </div>
                     </div>
                 </div>
@@ -64,174 +191,717 @@ const { contents: blogs } = await getBlogs();
 </Layout>
 
 <style lang="scss">
-@import '../../styles/vars.scss';
+    @import '../../styles/vars.scss';
+/* ドラクエ風の基本設定 */
+:root {
+    --dq-blue: #0058b0;
+    --dq-dark-blue: #000066;
+    --dq-gold: #dcb434;
+    --dq-border: #ffffff;
+    --dq-window-bg: #000000;
+}
 
 .profile {
     padding: 8rem 0;
-    background: #f8f9fa;
+}
+
+.sec-ttl-en {
+    font-family: 'emulogic', sans-serif;
+
+    font-size: 5rem;
+    line-height: 1.5;
+
+    @include max-screen($bp-sp) {
+        font-size: 3.6rem;
+    }
+
+    span {
+        display: inline-block;
+    }
+}
+
+/* ベーススタイル */
+.profile-content {
+    font-family: "PixelMplus12", monospace;
+}
+
+/* ドラクエ風ウィンドウ */
+.dq-window {
+    background: var(--dq-window-bg);
+    border: 4px solid var(--dq-border);
+    box-shadow: 0 0 0 6px var(--dq-window-bg);
+    position: relative;
+    margin: 8px 0 40px;
+    padding: 3rem 4rem;
+    color: var(--dq-border);
+    
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        background: var(--dq-border);
+    }
+    
+    &::before { top: -6px; left: -6px; }
+    &::after { bottom: -6px; right: -6px; }
+}
+
+/* ウィンドウタイトル */
+.window-title {
+    font-size: 2.4rem;
+    color: var(--dq-gold);
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px var(--dq-window-bg);
+    font-weight: normal;
+
+    @include max-screen($bp-sp) {
+        font-size: 2rem;
+    }
+}
+
+.section-title {
+    font-size: 3.2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 4rem;
+    letter-spacing: 0.1em;
+    position: relative;
+    
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: -1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 4rem;
+        height: 2px;
+        background: #000;
+    }
+}
+
+.introduction {
+    padding: 8rem 0;
+    background: #fff;
 
     &__content {
-        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 6rem;
+
+        @include max-screen($bp-sp) {
+            flex-direction: column-reverse;
+            gap: 3rem;
+        }
+    }
+
+    &__text {
+        flex: 1;
+    }
+
+    &__description {
+        font-size: 1.6rem;
+        line-height: 2;
+    }
+
+    &__image {
+        width: 30rem;
+        height: 30rem;
+        border-radius: 50%;
+        overflow: hidden;
+        
+        @include max-screen($bp-sp) {
+            width: 20rem;
+            height: 20rem;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+}
+
+.strengths {
+
+    margin-bottom: 8rem;
+    &__circles {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 4rem;
+
+    }
+    &__circle {
+        width: calc(100% * 1 / 3);
+        aspect-ratio: 1 / 1;
+        position: relative;
+        margin: 0 -2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .circle-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg); // 3時の位置から開始するために回転
+        }
+
+        .circle-path {
+            fill: none;
+            stroke: #333;
+            stroke-width: 1;
+            stroke-dasharray: 308; // 円周の長さ
+            stroke-dashoffset: 308; // 最初は完全に隠す
+        }
+
+        span {
+            z-index: 1;
+            font-size: 2rem;
+            text-align: center;
+            line-height: 1.6;
+        }
+    }
+}
+
+.circles-svg {
+    .circle-path {
+        stroke-dasharray: 1;
+        stroke-dashoffset: 1;
+    }
+}
+
+.strength-card {
+    padding: 3rem;
+    transition: transform 0.3s ease;
+    display: flex;
+    width: 90%;
+    margin: 0 auto;
+    text-align: left;
+    padding-top: 3.5rem;
+    border-top: 1px #666 solid;
+
+    &:last-of-type {
+        border-bottom: 1px solid #666;
+    }
+
+
+    &__icon {
+        width: 6rem;
+        height: 6rem;
+        margin: 0 auto 2rem;
+        
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    }
+
+    &__title {
+        font-size: 2.6rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        width: 40%;
     }
 
     &__text {
         font-size: 1.6rem;
-        margin-bottom: 6rem;
-        line-height: 1.8;
+        line-height: 2.6;
+        color: #666;
+        width: 60%;
     }
+}
 
-    &__subtitle {
+.history-window {
+    padding: 3rem;
+    background: #000;
+    margin-top: 4rem;
+    overflow: visible;
+    
+    .window-title {
         font-size: 2.4rem;
-        margin-bottom: 2rem;
-        color: #2c3e50;
+        color: #fff;
+        margin-bottom: 3rem;
+        text-align: center;
         position: relative;
-        padding-left: 1.5rem;
+        text-shadow: 2px 2px #000;
+        font-weight: normal;
 
-        &::before {
+        &::after {
             content: '';
             position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 4px;
-            height: 24px;
-            background: #8749ff;
+            bottom: -1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: #fff;
+        }
+    }
+}
+
+.timeline-container {
+    position: relative;
+    padding: 15rem 0 20rem;
+    overflow: visible;
+
+    @include max-screen($bp-sp) {
+        padding: 13rem 0 0;
+        overflow: hidden;
+        width: 100%;
+        position: relative;
+    }
+}
+
+.timeline {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+
+    @include max-screen($bp-sp) {
+        position: relative;
+        min-height: 18rem;
+        width: 100%;
+    }
+    
+    &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: #fff;
+        z-index: 1;
+
+        @include max-screen($bp-sp) {
+            transform: translateY(10px);
+            top: 0;
+        }
+    }
+}
+
+.map-point {
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+    width: 18rem;
+
+    @include max-screen($bp-sp) {
+        position: absolute;
+        width: 100%;
+        width: 100%;
+        left: 0;
+        top: 0;
+        opacity: 0;
+        transition: all 0.5s ease;
+        transform: translateX(100%);
+        pointer-events: none;
+
+        &.active {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: auto;
+            
+            .hero-icon {
+                opacity: 1;
+                animation: mobileHeroBounce 0.4s ease infinite alternate;
+            }
+            
+            .point-info {
+                opacity: 1;
+            }
+        }
+
+        &.prev {
+            transform: translateX(-100%);
         }
     }
 
-    // スキルグリッド
-    .skills-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 3rem;
-        margin-bottom: 6rem;
+    &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: -7rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 6rem;
+        height: 6rem;
+        background: url(../assets/images/about/map-point01.png) no-repeat center center;
+        background-size: contain;
+
+        @include max-screen($bp-sp) {
+            top: -8rem;
+            left: 50%;
+            transform: translateX(-50%);
+        }
     }
 
-    .skill-category {
-        h4 {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: #8749ff;
+    &:nth-of-type(2) {
+        &::after {
+            height: 6.5rem;
+            top: -7.5rem;
+            background: url(../assets/images/about/map-point02.png) no-repeat center center;
+            background-size: contain;
+        }
+    }
+    &:nth-of-type(3) {
+        &::after {
+            background: url(../assets/images/about/map-point03.png) no-repeat center center;
+            background-size: contain;
+        }
+    }
+    &:nth-of-type(4) {
+        &::after {
+            background: url(../assets/images/about/map-point04.png) no-repeat center center;
+            background-size: contain;
+        }
+    }
+    &:nth-of-type(5) {
+        &::after {
+            background: url(../assets/images/about/map-point05.png) no-repeat center center;
+            background-size: contain;
+        }
+    }
+
+    .hero-icon {
+        position: absolute;
+        top: -11rem;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0;
+        transition: all 0.5s ease;
+        width: 4rem;
+        height: 4rem;
+        z-index: 3;
+
+        @include max-screen($bp-sp) {
+            top: -12rem;
+            left: 43%;
         }
 
-        ul {
-            list-style: none;
-            padding: 0;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    }
 
-            li {
-                font-size: 1.6rem;
-                margin-bottom: 1rem;
-                padding-left: 1.5rem;
-                position: relative;
+    &:hover {
+        .hero-icon {
+            opacity: 1;
+            animation: bounce 0.4s ease infinite alternate;
+        }
+        .point-info {
+            opacity: 1;
+            transition: 0.4s ease;
+        }
+    }
+}
 
-                &::before {
-                    content: '•';
-                    position: absolute;
-                    left: 0;
-                    color: #8749ff;
+@keyframes bounce {
+    from {
+        transform: translateX(-50%) translateY(0);
+    }
+    to {
+        transform: translateX(-50%) translateY(-10px);
+    }
+}
+
+.point-content {
+    position: relative;
+    text-align: center;
+}
+
+.point-marker {
+    width: 20px;
+    height: 20px;
+    background: #000;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 12px;
+    position: relative;
+    z-index: 2;
+}
+
+.point-info {
+    background: #000;
+    border: 2px solid #fff;
+    padding: 1rem;
+    width: 23rem;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    opacity: 0;
+    top: 4rem;
+
+    @include max-screen($bp-sp) {
+        position: relative;
+        width: 80%;
+        max-width: 30rem;
+        margin: 2rem auto 0;
+        top: auto;
+        left: auto;
+        transform: none;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+}
+
+.point-year {
+    color: #fff;
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+}
+
+.point-title {
+    color: #fff;
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+    font-weight: normal;
+}
+
+.point-detail {
+    color: #aaa;
+    font-size: 1.4rem;
+    margin: 0;
+}
+
+
+
+.mobile-nav {
+    @include max-screen($bp-sp) {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: absolute;
+        top: 32%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+    
+        button {
+            background: none;
+            border: 2px solid #fff;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-family: "PixelMplus12", monospace;
+            
+            /* 前のCSSの続き */
+            &:hover {
+                background: rgba(255, 255, 255, 0.1);
+            }
+    
+            &:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+                &:hover {
+                    background: none;
                 }
             }
         }
-    }
-
-    // タイムライン
-    .timeline {
-        position: relative;
-        margin-bottom: 6rem;
-
-        &::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 2px;
-            background: #e9ecef;
-        }
-    }
-
-    .timeline-item {
-        padding-left: 3rem;
-        position: relative;
-        margin-bottom: 3rem;
-
-        &::before {
-            content: '';
-            position: absolute;
-            left: -4px;
-            top: 0;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #0097ab;
-        }
-    }
-
-    .timeline-date {
-        font-size: 1.4rem;
-        color: #666;
-        margin-bottom: 0.5rem;
-    }
-
-    // サービスグリッド
-    .services-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 3rem;
-        margin-bottom: 6rem;
-    }
-
-    .service-item {
-        background: white;
-        padding: 2rem;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-
-        h4 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            color: #0097ab;
+    
+        .slide-indicators {
+            display: flex;
+            gap: 1rem;
+            
+            .indicator {
+                width: 1rem;
+                height: 1rem;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.3);
+                cursor: pointer;
+                
+                &.active {
+                    background: #fff;
+                }
+            }
         }
 
-        p {
-            font-size: 1.4rem;
-            line-height: 1.6;
-        }
-    }
-
-    // 趣味・興味
-    .interests-content {
-        font-size: 1.4rem;
-        line-height: 1.8;
-    }
-
-    .interests-list {
-        list-style: none;
-        padding: 0;
-        margin-top: 2rem;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1rem;
-
-        li {
-            background: #e9ecef;
-            padding: 0.5rem 1.5rem;
-            border-radius: 50px;
-            font-size: 1.4rem;
-        }
     }
 }
 
-@media (max-width: 768px) {
-    .profile {
-        .skills-grid,
-        .services-grid {
-            grid-template-columns: 1fr;
-        }
-
-        &__subtitle {
-            font-size: 2rem;
-        }
+@keyframes mobileHeroBounce {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-10px);
     }
 }
 </style>
+
+<script>
+
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 効果音の設定
+    const playSelect = () => {
+        const audio = new Audio('/sounds/select.mp3');
+        audio.volume = 0.3;
+        audio.play();
+    };
+
+    // PCでのホバーイベント
+    document.querySelectorAll('.map-point').forEach(point => {
+        point.addEventListener('mouseenter', playSelect);
+    });
+
+    // モバイル用スライド機能
+    if (window.innerWidth <= 768) {
+        const timeline = document.querySelector('.timeline');
+        const points = document.querySelectorAll('.map-point');
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+        const indicators = document.querySelector('.slide-indicators');
+        let currentIndex = 0;
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        // ボタンの有効/無効状態を更新
+        const updateButtons = () => {
+            if (prevBtn && nextBtn) {
+                prevBtn.disabled = currentIndex === 0;
+                nextBtn.disabled = currentIndex === points.length - 1;
+            }
+        };
+
+        // スライド表示の更新
+        const updateSlides = () => {
+            points.forEach((point, index) => {
+                point.classList.remove('active', 'prev');
+                if (index === currentIndex) {
+                    point.classList.add('active');
+                } else if (index === currentIndex - 1) {
+                    point.classList.add('prev');
+                }
+            });
+
+            // インジケーターの更新
+            document.querySelectorAll('.indicator').forEach((ind, index) => {
+                ind.classList.toggle('active', index === currentIndex);
+            });
+
+            // ボタンの状態を更新
+            updateButtons();
+        };
+
+        // インジケーターの生成
+        points.forEach((_, index) => {
+            const indicator = document.createElement('div');
+            indicator.classList.add('indicator');
+            if (index === 0) indicator.classList.add('active');
+            indicator.addEventListener('click', () => {
+                playSelect();
+                goToSlide(index);
+            });
+            indicators.appendChild(indicator);
+        });
+
+        // 特定のスライドへ移動
+        const goToSlide = (index) => {
+            currentIndex = index;
+            updateSlides();
+        };
+
+        // 次のスライドへ
+        const nextSlide = () => {
+            if (currentIndex < points.length - 1) {
+                currentIndex++;
+                updateSlides();
+                playSelect();
+            }
+        };
+
+        // 前のスライドへ
+        const prevSlide = () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateSlides();
+                playSelect();
+            }
+        };
+
+        // ボタンイベントの設定
+        prevBtn.addEventListener('click', prevSlide);
+        nextBtn.addEventListener('click', nextSlide);
+
+        // スワイプ機能
+        timeline.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        timeline.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            const diff = touchStartX - touchEndX;
+            const threshold = 50;
+
+            if (Math.abs(diff) > threshold) {
+                if (diff > 0 && currentIndex < points.length - 1) {
+                    nextSlide();
+                } else if (diff < 0 && currentIndex > 0) {
+                    prevSlide();
+                }
+            }
+        }, { passive: true });
+
+        // 初期表示
+        updateSlides();
+    }
+
+
+    const circles = document.querySelectorAll('.strengths__circle');
+
+circles.forEach((circle, index) => {
+    const path = circle.querySelector('.circle-path');
+    const span = circle.querySelector('span');
+
+    gsap.fromTo(path, 
+        { strokeDashoffset: 308 },
+        {
+            strokeDashoffset: 0,
+            duration: 1.5,
+            ease: 'power2.inOut',
+            scrollTrigger: {
+                trigger: '.strengths__circles',
+                start: 'top center',
+                once: true 
+            },
+            delay: index * 0.3
+        }
+    );
+
+    gsap.fromTo(span,
+        { opacity: 0 },
+        {
+            opacity: 1,
+            duration: 0.5,
+            scrollTrigger: {
+                trigger: '.strengths__circles',
+                start: 'top center',
+                once: true 
+            },
+            delay: index * 0.3 + 1
+        }
+    );
+});
+});
+</script>
