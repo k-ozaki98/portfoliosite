@@ -1,0 +1,15 @@
+# Node.jsプロジェクトでよく使う.gitignore設定
+
+# ビルド成果物を除外
+dist/
+
+# node_modulesを除外
+node_modules/
+
+# OSやエディタ関連の不要なファイルを除外
+.DS_Store
+Thumbs.db
+
+# 環境設定関連
+.env
+*.local
