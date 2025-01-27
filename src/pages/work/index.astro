@@ -78,10 +78,14 @@ const works = [
 </Layout>
 
 <style lang="scss">
-/* Works Section */
+@import '../../styles/vars.scss';
 
 .work-page {
     padding: 8rem 0;
+
+    @include max-screen($bp-sp) {
+        padding: 4rem 0;
+    }
 }
 .work {
     background: #000;

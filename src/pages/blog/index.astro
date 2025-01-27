@@ -151,8 +151,13 @@ console.log('Page Data:', {
 </Layout>
 
 <style lang="scss">
+    @import '../../styles/vars.scss';
 .blog-page {
     padding: 8rem 0;
+
+    @include max-screen($bp-sp) {
+        padding: 4rem 0;
+    }
 
     .blog-layout {
         display: grid;

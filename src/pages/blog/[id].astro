@@ -86,13 +86,18 @@ const breadcrumbItems = [
     padding: 8rem 0;
     background: #f8f9fa;
 
+    @include max-screen($bp-sp) {
+        padding: 4rem 0;
+    }
+
     .blog-layout {
         display: grid;
-        grid-template-columns: 1fr 280px;
+        grid-template-columns: 1fr 28rem;
         gap: 4rem;
 
         @media (max-width: 1024px) {
-            grid-template-columns: 1fr;
+            display: block;
+            gap: 3rem;
         }
     }
 
@@ -102,6 +107,11 @@ const breadcrumbItems = [
         overflow: hidden;
         padding: 2.5rem 4rem; 
         box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
+
+        @include max-screen($bp-sp) {
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
     }
 
     .blog-thumbnail {
@@ -116,6 +126,10 @@ const breadcrumbItems = [
 
     .blog-header {
         padding: 2rem 2rem 0;
+
+        @include max-screen($bp-sp) {
+            padding: 1rem 0 0;
+        }
     }
 
     .blog-categories {
@@ -147,6 +161,10 @@ const breadcrumbItems = [
         line-height: 1.6;
         margin-bottom: 1rem;
         color: #1a202c;
+
+        @include max-screen($bp-sp) {
+            font-size: 2.5rem;
+        }
     }
 
     time {
@@ -154,6 +172,10 @@ const breadcrumbItems = [
         color: #718096;
         font-size: 0.95rem;
         margin-bottom: 2rem;
+
+        @include max-screen($bp-sp) {
+            margin-bottom: 0;
+        }
     }
 
     .blog-body {
@@ -161,9 +183,13 @@ const breadcrumbItems = [
         line-height: 1.8;
         color: #2d3748;
 
+        @include max-screen($bp-sp) {
+            padding: 2rem 0;
+        }
+
         // リッチエディタのスタイリング
         h2 {
-            margin: 30px 0;
+            margin: 3rem 0;
             padding: .5em .75em;
             background-color: #000;
             border: 6px double #fff;
@@ -171,6 +197,10 @@ const breadcrumbItems = [
             font-size: 1.5em;
             color: #fff;
             position: relative;
+
+            @include max-screen($bp-sp) {
+                margin: 2rem 0;
+            }
 
 
             &::before {
@@ -191,6 +221,10 @@ const breadcrumbItems = [
             border-bottom: 3px solid #000;
             font-size: 1.25em;
             margin: 3rem 0 2rem;
+
+            @include max-screen($bp-sp) {
+                margin: 2rem 0; 
+            }
         }
 
         h4 {
@@ -361,27 +395,7 @@ const breadcrumbItems = [
 }
 
 // レスポンシブ対応
-@media (max-width: 768px) {
-    .blog-detail {
-        padding: 4rem 0;
 
-        h1 {
-            font-size: 2rem;
-        }
-
-        .blog-body {
-            padding: 1.5rem;
-
-            h2 {
-                font-size: 1.5rem;
-            }
-
-            h3 {
-                font-size: 1.25rem;
-            }
-        }
-    }
-}
 </style>
 
 <script>

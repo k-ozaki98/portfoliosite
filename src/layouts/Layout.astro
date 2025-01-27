@@ -122,6 +122,10 @@ const currentPath = new URL(Astro.request.url).pathname;
         width: 90%;
         margin: 0 auto;
         max-width: 1200px;
+
+        @include max-screen(1300px) {
+            max-width: 90%;
+        }
     }
     .l-inner {
         margin: 0 auto;

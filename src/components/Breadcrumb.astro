@@ -27,6 +27,8 @@ const { items } = Astro.props;
 </nav>
 
 <style lang="scss">
+
+@import '../styles/vars.scss';
 .breadcrumb {
     padding: 1rem 0;
     background: #fff;
@@ -48,6 +50,10 @@ const { items } = Astro.props;
         align-items: center;
         color: #666;
         font-size: 1.6rem;
+
+        @include max-screen($bp-sp) {
+            font-size: 1.4rem;
+        }
         
         &:not(:last-child)::after {
             content: ">";

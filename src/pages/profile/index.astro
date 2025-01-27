@@ -203,6 +203,10 @@ const { contents: blogs } = await getBlogs();
 
 .profile {
     padding: 8rem 0;
+
+    @include max-screen($bp-sp) {
+        padding: 4rem 0;
+    }
 }
 
 .sec-ttl-en {
@@ -212,7 +216,7 @@ const { contents: blogs } = await getBlogs();
     line-height: 1.5;
 
     @include max-screen($bp-sp) {
-        font-size: 3.6rem;
+        font-size: 2.4rem;
     }
 
     span {
@@ -268,6 +272,10 @@ const { contents: blogs } = await getBlogs();
     margin-bottom: 4rem;
     letter-spacing: 0.1em;
     position: relative;
+
+    @include max-screen($bp-sp) {
+        font-size: 1.8rem;
+    }
     
     &::after {
         content: '';
@@ -284,6 +292,10 @@ const { contents: blogs } = await getBlogs();
 .introduction {
     padding: 8rem 0;
     background: #fff;
+
+    @include max-screen($bp-sp) {
+        padding: 0 0 4rem;
+    }
 
     &__content {
         display: flex;
@@ -304,6 +316,10 @@ const { contents: blogs } = await getBlogs();
     &__description {
         font-size: 1.6rem;
         line-height: 2;
+
+        @include max-screen($bp-sp) {
+            font-size: 1.4rem;
+        }
     }
 
     &__image {
@@ -328,10 +344,20 @@ const { contents: blogs } = await getBlogs();
 .strengths {
 
     margin-bottom: 8rem;
+
+    @include max-screen($bp-sp) {
+        margin-bottom: 4rem;
+    }
     &__circles {
         display: flex;
         justify-content: center;
         margin-bottom: 4rem;
+
+        @include max-screen($bp-sp) {
+            margin-bottom: 3rem;
+            position: relative;
+            padding-top: 14rem;
+        }
 
     }
     &__circle {
@@ -342,6 +368,18 @@ const { contents: blogs } = await getBlogs();
         display: flex;
         align-items: center;
         justify-content: center;
+
+        @include max-screen($bp-sp) {
+            width: calc(100% * 1 / 2);
+            margin: 0 -1rem;
+            &:first-of-type {
+                position: absolute;
+                top: 1rem;
+                left: 50%;
+                transform: translateX(-50%);
+                margin: 0;
+            }
+        }
 
         .circle-svg {
             position: absolute;
@@ -365,6 +403,10 @@ const { contents: blogs } = await getBlogs();
             font-size: 2rem;
             text-align: center;
             line-height: 1.6;
+
+            @include max-screen($bp-sp) {
+                font-size: 1.4rem;
+            }
         }
     }
 }
@@ -385,6 +427,11 @@ const { contents: blogs } = await getBlogs();
     text-align: left;
     padding-top: 3.5rem;
     border-top: 1px #666 solid;
+
+    @include max-screen($bp-sp) {
+        padding: 2rem 1rem;
+        flex-direction: column;
+    }
 
     &:last-of-type {
         border-bottom: 1px solid #666;
@@ -408,6 +455,11 @@ const { contents: blogs } = await getBlogs();
         font-weight: 700;
         margin-bottom: 1.5rem;
         width: 40%;
+
+        @include max-screen($bp-sp) {
+            font-size: 2rem;
+            width: 100%;
+        }
     }
 
     &__text {
@@ -415,6 +467,12 @@ const { contents: blogs } = await getBlogs();
         line-height: 2.6;
         color: #666;
         width: 60%;
+
+        @include max-screen($bp-sp) {
+            width: 100%;
+            font-size: 1.4rem;
+            line-height: 2;
+        }
     }
 }
 
@@ -432,6 +490,10 @@ const { contents: blogs } = await getBlogs();
         position: relative;
         text-shadow: 2px 2px #000;
         font-weight: normal;
+
+        @include max-screen($bp-sp) {
+            font-size: 2rem;
+        }
 
         &::after {
             content: '';
