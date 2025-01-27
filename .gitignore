@@ -6,6 +6,9 @@ dist/
 # node_modulesを除外
 node_modules/
 
+.astro/
+.netlify/
+
 # OSやエディタ関連の不要なファイルを除外
 .DS_Store
 Thumbs.db

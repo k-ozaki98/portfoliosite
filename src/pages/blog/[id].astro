@@ -1,30 +1,20 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import BlogSidebar from '../../components/BlogSidebar.astro';
+import BlogContent from '../../components/BlogContent';
 import { client } from '../../lib/microcms';
 import type { Blog } from '../../lib/microcms';
 import 'prismjs/themes/prism-tomorrow.css';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 
-// Dynamic routes for all blog posts
 export async function getStaticPaths() {
-    // すべてのブログ記事を取得
-    const response = await client.get({
-        endpoint: 'blog',
-    });
-
-    // 各ブログ記事のパスを返す
-    return response.contents.map((blog: Blog) => ({
-        params: {
-            id: blog.id  // URLパラメータとしてblog.idを使用
-        },
-        props: {
-            blog
-        },
-    }));
+  const response = await client.get({ endpoint: 'blog' });
+  return response.contents.map((blog) => ({
+    params: { id: blog.id },
+    props: { blog }
+  }));
 }
 
-// プロパティからブログ記事データを取得
 const { id } = Astro.params;
 const blog = await client.get({
     endpoint: 'blog',
@@ -32,21 +22,12 @@ const blog = await client.get({
 });
 
 const breadcrumbItems = [
-    {
-        label: 'ブログ',
-        href: '/blog'
-    },
-    {
-        label: blog.title
-    }
+    { label: 'ブログ', href: '/blog' },
+    { label: blog.title }
 ];
 ---
 
-<Layout 
-    pageId='blog-detail' 
-    title={blog.title} 
-    description={blog.description || ''}
->
+<Layout pageId='blog-detail' title={blog.title} description={blog.description || ''}>
     <div class="blog-detail">
         <div class="page-kv">
             <div class="page-kv__wrap">
@@ -65,14 +46,13 @@ const breadcrumbItems = [
                     <article class="blog-content">
                         <Breadcrumb items={breadcrumbItems} />
                         <div class="blog-thumbnail">
-                        {blog.thumbnail && (
-                            <img 
-                                src={blog.thumbnail.url} 
-                                alt={blog.title}
-                                class="blog-thumbnail"
-                            />
-                        )}
-
+                            {blog.thumbnail && (
+                                <img 
+                                    src={blog.thumbnail.url} 
+                                    alt={blog.title}
+                                    class="blog-thumbnail"
+                                />
+                            )}
                         </div>
                         <div class="blog-header">
                             {blog.categories && blog.categories.length > 0 && (
@@ -92,7 +72,7 @@ const breadcrumbItems = [
                                 })}
                             </time>
                         </div>
-                        <div class="blog-body" set:html={blog.body} />
+                        <BlogContent client:load blog={blog} />
                     </article>
                 </main>
                 <BlogSidebar />
@@ -100,7 +80,6 @@ const breadcrumbItems = [
         </div>
     </div>
 </Layout>
-
 <style lang="scss" is:global>
     @import '../../styles/vars.scss';
 .blog-detail {
@@ -311,6 +290,74 @@ const breadcrumbItems = [
             color: #4a5568;
         }
     }
+}
+
+.password-wall {
+ display: grid;
+ place-items: center;
+ min-height: 50vh;
+ 
+ form {
+   background: #000;
+   border: 4px double #fff;
+   padding: 3rem;
+   width: 90%;
+   max-width: 500px;
+   text-align: center;
+   position: relative;
+   
+   &::before {
+     content: '';
+     position: absolute;
+     inset: -2px;
+     border: 2px solid #dcb434;
+     pointer-events: none;
+   }
+ }
+
+ h2 {
+   font-family: "PixelMplus12", sans-serif;
+   font-weight: normal;
+   color: #fff;
+   font-size: 2rem;
+   margin-bottom: 2rem;
+ }
+
+ input {
+   width: 100%;
+   background: #111;
+   border: 2px solid #dcb434;
+   color: #fff;
+   padding: 1rem;
+   font-family: "PixelMplus12", sans-serif;
+   margin-bottom: 1rem;
+   
+   &:focus {
+     outline: none;
+     box-shadow: 0 0 0 2px #dcb434;
+   }
+ }
+
+ button {
+   background: transparent;
+   border: 2px solid #dcb434;
+   color: #dcb434;
+   padding: 0.5rem 2rem;
+   font-family: "PixelMplus12", sans-serif;
+   cursor: pointer;
+   transition: all 0.2s;
+   
+   &:hover {
+     background: #dcb434;
+     color: #000;
+   }
+ }
+
+ .error {
+   color: #ff4444;
+   margin-bottom: 1rem;
+   font-family: "PixelMplus12", sans-serif;
+ }
 }
 
 // レスポンシブ対応

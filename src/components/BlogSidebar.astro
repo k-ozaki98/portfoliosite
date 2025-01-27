@@ -67,6 +67,11 @@ const { contents: popularPosts } = await getBlogs({
     &::after { bottom: -6px; right: -6px; }
 }
 .blog-sidebar {
+    will-change: transform;
+    transform: translateZ(0);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
     .sidebar-title {
         font-size: 2rem;
         padding: 0 1rem;
@@ -104,7 +109,6 @@ const { contents: popularPosts } = await getBlogs({
         padding: 2rem;
     }
     .sidebar-about {
-        margin-bottom: 4rem;
         border-radius: 5px;
     background: #fff;
     background-color: #000;
@@ -178,3 +182,32 @@ const { contents: popularPosts } = await getBlogs({
     }
 }
 </style>
+
+<script>
+    import gsap from 'gsap';
+  import {
+  ScrollTrigger
+} from "gsap/ScrollTrigger";
+
+// document.addEventListener('DOMContentLoaded', () => {
+//  gsap.registerPlugin(ScrollTrigger);
+
+//  const sidebar = document.querySelector('.blog-sidebar');
+//  if (!sidebar) return;
+
+//  // 記事詳細ページと一覧ページのエンドポイントを確認
+//  const endTrigger = document.querySelector('.blog-content') || document.querySelector('.blog__grid');
+//  if (!endTrigger) return;
+
+//  gsap.to(sidebar, {
+//    scrollTrigger: {
+//      trigger: sidebar,
+//      start: "top 100px",
+//      endTrigger: endTrigger,
+//      end: "bottom bottom",
+//      pin: true,
+//      pinSpacing: true,
+//    }
+//  });
+// });
+</script>

@@ -69,3 +69,4 @@ export const getBlogs = async (queries?: {
       totalCount: response.totalCount
   };
 };
+

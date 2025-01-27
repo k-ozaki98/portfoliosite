@@ -81,14 +81,27 @@ const { contents: blogs } = await client.get({
 .blog-page {
 
     .blog-layout {
-        display: grid;
-        grid-template-columns: 1fr 280px;
-        gap: 4rem;
+  display: flex;
+  gap: 4rem;
+  align-items: flex-start;
 
-        @media (max-width: 1024px) {
-            grid-template-columns: 1fr;
-        }
+  main {
+    flex: 1;
+  }
+
+  .blog-sidebar {
+    width: 280px;
+    height: fit-content;
+  }
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    
+    .blog-sidebar {
+      width: 100%;
     }
+  }
+}
 
     .blog__grid {
         display: grid;
