@@ -19,7 +19,7 @@ const menuItems = [
     <nav class="header__nav">
       <h1 class="header__logo">
         <a href="/">
-          <img src="../../assets/images/common/logo.png" alt="ロゴ" class="pixel-image">
+          <img src="../../assets/images/common/logo.svg" alt="ロゴ" class="pixel-image">
         </a>
       </h1>
       <!-- PC・タブレット用メニュー -->
@@ -121,12 +121,10 @@ const menuItems = [
     }
 
     &__logo {
-      width: 17rem;
-      height: 5rem;
+      width: 10rem;
 
       @include max-screen($bp-sp) {
-         width: 8.5rem;
-         height: 2.5rem;   
+         width: 8rem; 
         }
 
 			img {
@@ -200,10 +198,6 @@ const menuItems = [
         width: 100%;
       }
 
-      &__logo {
-        width: 12rem;
-        height: 4rem;
-      }
 
       &__menu {
         gap: 1.5rem;
