@@ -8,6 +8,7 @@ node_modules/
 
 .astro/
 .netlify/
+.cloudflare
 
 # OSやエディタ関連の不要なファイルを除外
 .DS_Store

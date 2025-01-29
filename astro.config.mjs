@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 
-import netlify from '@astrojs/netlify';
+import cloudflare from "@astrojs/cloudflare";
 
 export default defineConfig({
   vite: {
@@ -16,5 +16,5 @@ export default defineConfig({
   },
   integrations: [react()],
   output: "server",
-  adapter: netlify(),
+  adapter: cloudflare(),
 });
