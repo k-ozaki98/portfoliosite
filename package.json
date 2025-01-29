@@ -10,11 +10,12 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^12.2.1",
     "@astrojs/react": "^3.6.3",
     "@emotion/react": "^11.13.3",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "astro": "^4.14.2",
+    "astro": "^5.1.10",
     "clipboard": "^2.0.11",
     "gsap": "^3.12.5",
     "lenis": "^1.1.14",
