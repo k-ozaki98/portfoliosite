@@ -15,8 +15,5 @@ export default defineConfig({
     },
   },
   integrations: [react()],
-  output: "server",
-  adapter: cloudflare({
-    mode: "directory", // これを追加
-  }),
+  output: "static",
 });
