@@ -1,33 +1,45 @@
-// src/components/PasswordForm.jsx
 import React, { useState } from 'react';
 
 const PasswordForm = ({ id, onSuccess }) => {
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError('');
+
     const password = e.target.password.value;
     
     try {
-      const res = await fetch('/api/verify-password', {
-        method: 'POST',
+      // 🔥 MicroCMS から記事データを取得
+      const res = await fetch(`https://koki-ozaki.microcms.io/api/v1/blog/${id}`, {
         headers: {
+          'X-API-KEY': 'SEXWPb4jckQu58suXnDpkZSa3PPbtIgOrYM9',
           'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ id, password })
+        }
       });
-      
+
+      if (!res.ok) {
+        throw new Error('記事が見つかりません');
+      }
+
       const data = await res.json();
-      console.log('Response:', data); // レスポンスの内容を確認
-      
-      if (res.ok) {
+      console.log('MicroCMS Response:', data); // デバッグ用
+
+      // 🔥 パスワードチェック
+      if (data.pass === password) {
+        // ✅ 認証成功 → ローカルストレージに保存してリロード後も認証維持
+        localStorage.setItem(`auth_${id}`, 'true');
         onSuccess();
       } else {
-        setError('パスワードがただしくありません');
+        setError('パスワードが違います');
       }
     } catch (error) {
-      console.error('Error:', error); // エラー内容を確認
+      console.error('Error:', error);
       setError('エラーが発生しました');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -37,7 +49,9 @@ const PasswordForm = ({ id, onSuccess }) => {
         <h2>パスワードを入力してください</h2>
         <input type="password" name="password" required />
         {error && <p className="error">{error}</p>}
-        <button type="submit">確認</button>
+        <button type="submit" disabled={loading}>
+          {loading ? '確認中...' : '確認'}
+        </button>
       </form>
     </div>
   );
