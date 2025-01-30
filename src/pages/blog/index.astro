@@ -16,14 +16,7 @@ const { contents: blogs, totalCount } = await getBlogs({
 
 const totalPages = Math.ceil(totalCount / PER_PAGE);
 
-// デバッグログ
-console.log('Page Data:', {
-    currentPage,
-    offset,
-    totalCount,
-    totalPages,
-    fetchedCount: blogs.length
-});
+
 ---
 
 <Layout 

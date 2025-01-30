@@ -25,7 +25,6 @@ const PasswordForm = ({ id, onSuccess }) => {
       }
 
       const data = await res.json();
-      console.log('MicroCMS Response:', data); // デバッグ用
 
       // 🔥 パスワードチェック
       if (data.pass === password) {

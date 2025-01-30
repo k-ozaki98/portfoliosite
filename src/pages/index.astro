@@ -7,7 +7,6 @@ import "nes.css/css/nes.min.css";
 
 try {
     const response = await getBlogs({ limit: 6 });
-    console.log('API Response:', JSON.stringify(response, null, 2));
     const { contents: blogs } = response;
     
     // 個別のブログデータをチェック
