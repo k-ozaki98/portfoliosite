@@ -1,5 +1,7 @@
 ---
 import { getCategories, getBlogs } from '../lib/microcms';
+import TableOfContents from './TableOfContents.astro';
+const { content } = Astro.props;
 const categories = await getCategories();
 
 // 人気記事を取得（例として最新5件を表示）
@@ -21,29 +23,12 @@ const { contents: popularPosts } = await getBlogs({
             </div>
         </div>
     </div>
-    <!-- カテゴリーセクション -->
-    <div class="sidebar-section">
-        <div class="sidebar-wrap b-wrap">
-            <h3 class="sidebar-title">カテゴリー</h3>
-            <div class="category-list">
-                <a href="/blog" class="category-link">
-                    全ての記事
-                </a>
-                {categories.map((category) => (
-                    <a 
-                        href={`/blog/${category.slug}`} 
-                        class="category-link"
-                    >
-                        {category.name}
-                    </a>
-                ))}
-            </div>
-
-        </div>
-    </div>
+    <TableOfContents content={content} />
 </aside>
 
 <style lang="scss">
+
+@import '../styles/vars.scss';
 
 .dq-window {
     background: var(--dq-window-bg);
@@ -71,7 +56,12 @@ const { contents: popularPosts } = await getBlogs({
     transform: translateZ(0);
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    width: 25rem;
+    gap: 50px;
+
+    @include max-screen(1024px) {
+        display: none!important;
+    }
     .sidebar-title {
         font-size: 2rem;
         padding: 0 1rem;
@@ -106,7 +96,7 @@ const { contents: popularPosts } = await getBlogs({
 
     .sidebar-wrap {
         position: relative;
-        padding: 2rem;
+        padding: 2rem 1rem!important;
     }
     .sidebar-about {
         border-radius: 5px;
@@ -152,12 +142,9 @@ const { contents: popularPosts } = await getBlogs({
 
 
     .sidebar-section {
-        border-radius: 5px;
-    background: #fff;
-    background-color: #000;
-    box-shadow: 0 0 0 4px #000;
-    border: 2px solid #fff;
-    padding: 3.2rem;
+        
+
+  
     }
 
     .category-list {
@@ -180,6 +167,10 @@ const { contents: popularPosts } = await getBlogs({
             background-color: #f5f5f5;
         }
     }
+
+    .sidebar-wrap {
+    padding: 1rem;
+  }
 }
 </style>
 

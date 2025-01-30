@@ -1,0 +1,319 @@
+---
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+
+export interface Props {
+  content: string;
+}
+
+const { content } = Astro.props;
+
+// 記事内容の見出しにIDを付与する
+// TableOfContents.astro 内の modifiedContent 生成部分を修正
+function addIdsToHeadings(content: string) {
+  let modifiedContent = content;
+  const headings = [];
+  const regex = /<h([12])[^>]*>(.*?)<\/h\1>/g;
+  let match;
+  let index = 1;
+
+  // 一旦全ての見出しを収集
+  while ((match = regex.exec(content)) !== null) {
+    const level = match[1];
+    const text = match[2].replace(/<[^>]*>/g, '');
+    const id = `heading-${index}`;
+    
+    headings.push({
+      level: parseInt(level),
+      text,
+      id,
+      originalTag: match[0]
+    });
+    index++;
+  }
+
+  // セクションで囲む
+  headings.forEach((heading, i) => {
+    const startRegex = new RegExp(heading.originalTag);
+    const nextHeading = headings[i + 1]?.originalTag || '$';
+    const sectionRegex = new RegExp(`(${heading.originalTag})(.*?)(${nextHeading})`, 's');
+    
+    const replacement = `<section id="section-${heading.id}" class="content-section">
+      <h${heading.level} id="${heading.id}">${heading.text}</h${heading.level}>$2
+    </section>`;
+    
+    modifiedContent = modifiedContent.replace(sectionRegex, replacement);
+  });
+
+  return { modifiedContent, headings };
+}
+
+const { modifiedContent, headings } = addIdsToHeadings(content);
+
+// 親コンポーネントに修正後のコンテンツを渡すためのスクリプト
+const script = `
+  document.querySelector('.blog-body').innerHTML = \`${modifiedContent}\`;
+`;
+---
+
+<div class="sidebar-section">
+  <div class="sidebar-wrap">
+      <h3 class="sidebar-title">目次</h3>
+      <nav class="toc" data-headings={JSON.stringify(headings)}>
+          <ul>
+              {headings.map((heading) => (
+                  <li class={`toc-item level-${heading.level}`} data-id={heading.id}>
+                      <a href={`#${heading.id}`}>{heading.text}</a>
+                  </li>
+              ))}
+          </ul>
+      </nav>
+  </div>
+</div>
+
+<script set:html={script} />
+
+<style lang="scss">
+  @import '../styles/vars.scss';
+  .sidebar-wrap {
+    border-radius: 5px;
+    background: #fff;
+    background-color: #000;
+    box-shadow: 0 0 0 4px #000;
+    border: 2px solid #fff;
+    padding: 2rem 1rem;
+    position: relative;
+  width: 100%;  // 幅を固定
+  z-index: 10;
+  width: 25rem;
+
+  @include max-screen(1024px) {
+        display: none!important;
+    }
+  }
+
+  .content-section {
+  position: relative;
+  padding: 1rem 0;
+  
+  h1, h2 {
+    transition: color 0.3s ease;
+  }
+}
+.toc {
+  ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .toc-item {
+        margin-bottom: 0.8rem;
+        position: relative;  // 追加
+        
+        a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.4rem;
+            transition: all 0.3s ease;
+            display: block;
+            padding: 0.3rem 2rem 0.3rem 1.5rem;  // 右側の padding を増やす
+            border-left: 3px solid transparent;
+            
+            &::after {  // 矢印追加
+                content: '▶';
+                position: absolute;
+                left: 0;
+                top: 0;
+                transform: translateY(20%);
+                color: #dcb434;
+                opacity: 0;
+                transition: all 0.3s ease;
+            }
+            
+            &:hover {
+                color: #dcb434;
+                background: rgba(220, 180, 52, 0.1);
+                
+                &::after {
+                    opacity: 1;
+                }
+            }
+        }
+
+        &.active a {
+            color: #dcb434;
+            border-left-color: #dcb434;
+            background: rgba(220, 180, 52, 0.1);
+            
+            &::after {
+                opacity: 1;
+            }
+        }
+        
+        &.level-1 {
+            margin-left: 0;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        &.level-2 {
+            margin-left: 1.5rem;
+            font-size: 0.9em;
+        }
+    }
+
+}
+
+</style>
+
+<script>
+    import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+
+  gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const tocItems = document.querySelectorAll('.toc-item');
+    const headingsData = JSON.parse(document.querySelector('.toc').dataset.headings);
+
+    // スムーススクロール
+    tocItems.forEach(item => {
+      item.querySelector('a').addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = item.getAttribute('data-id');
+        const target = document.getElementById(id);
+        
+        if (target) {
+          gsap.to(window, {
+            duration: 0.3,
+            scrollTo: {
+              y: target,
+              offsetY: 100,
+              autoKill: false
+            },
+            ease: 'power2.inOut'
+          });
+        }
+      });
+    });
+
+    // 各見出しに対してScrollTriggerを設定
+    headingsData.forEach((heading) => {
+      const tocItem = document.querySelector(`.toc-item[data-id="${heading.id}"]`);
+      
+      ScrollTrigger.create({
+        trigger: `#${heading.id}`,
+        start: 'top center',
+        end: 'bottom center',
+        onEnter: () => {
+          gsap.to(tocItem, {
+            color: '#dcb434',
+            backgroundColor: 'rgba(220, 180, 52, 0.1)',
+            borderLeftColor: '#dcb434',
+            duration: 0.3
+          });
+        },
+        onLeaveBack: () => {
+          gsap.to(tocItem, {
+            color: '#fff',
+            backgroundColor: 'transparent',
+            borderLeftColor: 'transparent',
+            duration: 0.3
+          });
+        }
+      });
+    });
+
+    // サイドバーの追従設定
+    const sidebar = document.querySelector('.sidebar-section');
+    const content = document.querySelector('.blog-content') || document.querySelector('.blog__grid');
+
+    if (sidebar && content) {
+  ScrollTrigger.create({
+    trigger: sidebar,
+    start: 'top 50px',
+    endTrigger: content,
+    end: 'bottom center',
+    pin: true,
+    pinReparent: true,
+    markers: true,
+  });
+}
+
+    // スクロールアニメーション部分
+const setupScrollAnimations = () => {
+  const tocItems = document.querySelectorAll('.toc-item');
+  const sections = document.querySelectorAll('.content-section');
+
+  sections.forEach((section, index) => {
+    const tocItem = tocItems[index];
+    const heading = section.querySelector('h1, h2');
+
+    ScrollTrigger.create({
+      trigger: section,
+      start: 'top center',
+      end: 'bottom center',
+      onEnter: () => {
+        gsap.to(tocItem, {
+          color: '#dcb434',
+          backgroundColor: 'rgba(220, 180, 52, 0.1)',
+          borderLeftColor: '#dcb434',
+          duration: 0.3,
+          ease: 'power2.out'
+        });
+        
+        // 見出しのアニメーション
+        gsap.to(heading, {
+          color: '#dcb434',
+          duration: 0.3,
+          ease: 'power2.out'
+        });
+      },
+      onLeaveBack: () => {
+        gsap.to(tocItem, {
+          color: '#fff',
+          backgroundColor: 'transparent',
+          borderLeftColor: 'transparent',
+          duration: 0.3,
+          ease: 'power2.out'
+        });
+        
+        gsap.to(heading, {
+          color: 'inherit',
+          duration: 0.3,
+          ease: 'power2.out'
+        });
+      }
+    });
+  });
+};
+
+// クリックでのスクロール
+const setupClickHandlers = () => {
+  const tocItems = document.querySelectorAll('.toc-item');
+
+  tocItems.forEach(item => {
+    item.querySelector('a').addEventListener('click', (e) => {
+      e.preventDefault();
+      const id = item.getAttribute('data-id');
+      const section = document.querySelector(`#section-${id}`);
+
+      if (section) {
+        gsap.to(window, {
+          duration: 0.8,
+          scrollTo: {
+            y: section,
+            offsetY: 100,
+            autoKill: false
+          },
+          ease: 'power2.inOut'
+        });
+      }
+    });
+  });
+};
+  });
+</script>

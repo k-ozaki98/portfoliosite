@@ -75,7 +75,7 @@ const breadcrumbItems = [
                         <BlogContent client:load blog={blog} />
                     </article>
                 </main>
-                <BlogSidebar />
+                <BlogSidebar content={blog.body} />
             </div>
         </div>
     </div>
@@ -92,12 +92,14 @@ const breadcrumbItems = [
 
     .blog-layout {
         display: grid;
-        grid-template-columns: 1fr 28rem;
+        // grid-template-columns: 1fr 28rem;
         gap: 4rem;
+        display: flex;
+        align-items: flex-start;
 
         @media (max-width: 1024px) {
-            display: block;
-            gap: 3rem;
+            flex-direction: column;
+            gap: 5rem;
         }
     }
 
@@ -107,8 +109,14 @@ const breadcrumbItems = [
         overflow: hidden;
         padding: 2.5rem 4rem; 
         box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
+        width: 83rem;
+
+        @include max-screen(1300px) {
+            width: auto;
+        }
 
         @include max-screen($bp-sp) {
+            width: 100%;
             padding: 2rem;
             margin-bottom: 3rem;
         }
@@ -302,18 +310,33 @@ const breadcrumbItems = [
             margin-bottom: 1rem;
         }
 
-        li {
-            position: relative;
-            padding-left: 2rem;
-            margin: 0 0 0 1.25rem;
+        ul {
+       list-style: none;
+       
+       li {
+           position: relative;
+           padding-left: 2rem;
 
-            &::after {
-                content: '●';
-                display: block;
-                left: 0;
-                position: absolute;
-                top: 0;
-                color: #666;
+           &::before {  // afterからbeforeに変更
+               content: '●';
+               display: block;
+               left: 0;
+               position: absolute;
+               top: 0;
+               color: #000;
+               font-size: 1.4rem;
+           }
+       }
+   }
+
+        ol {
+            list-style-type: lower-roman!important;
+            padding-left: 2rem; 
+
+            li {
+                position: relative;
+                list-style-type: lower-roman!important;
+
             }
         }
 
