@@ -1,4 +1,9 @@
 import React, { useState } from 'react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { gsap } from 'gsap';
+
+// ScrollTriggerプラグインを登録
+gsap.registerPlugin(ScrollTrigger);
 
 const PasswordForm = ({ id, onSuccess }) => {
   const [error, setError] = useState('');
@@ -30,6 +35,7 @@ const PasswordForm = ({ id, onSuccess }) => {
       if (data.pass === password) {
         // ✅ 認証成功 → ローカルストレージに保存してリロード後も認証維持
         localStorage.setItem(`auth_${id}`, 'true');
+        ScrollTrigger.getAll().forEach(trigger => trigger.kill());
         onSuccess();
       } else {
         setError('パスワードが違います');
