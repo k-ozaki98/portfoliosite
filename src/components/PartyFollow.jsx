@@ -1,8 +1,23 @@
 import React, { useState, useEffect } from 'react';
 
 const PartyFollow = () => {
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  useEffect(() => {
+    // タッチデバイスの判定
+    const isTouchable = ('ontouchstart' in window) || 
+      (navigator.maxTouchPoints > 0) || 
+      (navigator.msMaxTouchPoints > 0);
+    
+    setIsTouchDevice(isTouchable);
+  }, []);
+
+  // タッチデバイスの場合は何も表示しない
+  if (isTouchDevice) {
+    return null;
+  }
   const [isInitialized, setIsInitialized] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  
   const [positions, setPositions] = useState([
     { x: 0, y: 0, direction: 'down' },
     { x: 0, y: 0, direction: 'down' },
@@ -140,7 +155,7 @@ const PartyFollow = () => {
   }, [isInitialized]);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-[9999] !important">
+    <div className="fixed inset-0 pointer-events-none z-[9999] !important hidden md:block">
       {positions.map((pos, index) => (
         <div
           key={index}
