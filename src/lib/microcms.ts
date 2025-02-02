@@ -52,21 +52,26 @@ export const getBlogs = async (queries?: {
   offset?: number;
   category?: string;
 }) => {
-  // クエリパラメータを明示的に文字列に変換
   const params = {
-      orders: '-publishedAt',
-      limit: String(queries?.limit || 10),
-      offset: String(queries?.offset || 0),
+    orders: '-publishedAt',
+    limit: queries?.limit || 10,  // 数値のまま
+    offset: queries?.offset || 0   // 数値のまま
   };
 
+  if (queries?.category) {
+    params['filters'] = `category[equals]${queries.category}`;
+  }
+
   const response = await client.get({
-      endpoint: 'blog',
-      queries: params
+    endpoint: 'blog',
+    queries: params
   });
 
   return {
-      contents: response.contents,
-      totalCount: response.totalCount
+    contents: response.contents,
+    totalCount: response.totalCount
   };
 };
+
+
 

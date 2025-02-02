@@ -75,7 +75,7 @@ const breadcrumbItems = [
                         <BlogContent client:load blog={blog} />
                     </article>
                 </main>
-                <BlogSidebar content={blog.body} />
+                <BlogSidebar content={blog.body} pageId={'blog-detail'} />
             </div>
         </div>
     </div>
@@ -88,7 +88,13 @@ const breadcrumbItems = [
 
     @include max-screen($bp-sp) {
         padding: 4rem 0;
+
+        main {
+            width: 100%;
+        }
     }
+
+   
 
     .blog-layout {
         display: grid;

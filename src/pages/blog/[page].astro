@@ -1,0 +1,404 @@
+---
+import BlogSidebar from "../../components/BlogSidebar.astro";
+import Layout from "../../layouts/Layout.astro";
+import { getBlogs } from "../../lib/microcms";
+
+export async function getStaticPaths() {
+    const PER_PAGE = 10;
+    const { totalCount } = await getBlogs();
+    const totalPages = Math.ceil(totalCount / PER_PAGE);
+
+    return Array.from({ length: totalPages - 1 }, (_, i) => {
+        const page = i + 2; // 2ページ目から始める
+        return {
+            params: { page: page.toString() },
+            props: {
+                currentPage: page,
+                totalPages,
+                offset: (page - 1) * PER_PAGE,
+            },
+        };
+    });
+}
+
+const { currentPage, totalPages, offset } = Astro.props;
+const PER_PAGE = 10;
+
+const { contents: blogs } = await getBlogs({
+    limit: PER_PAGE,
+    offset: offset
+});
+---
+
+<Layout pageId='blog' title={`ブログ一覧 - ${currentPage}ページ目`} description='技術ブログの一覧ページです'>
+    <div class="blog-page blog">
+        <div class="page-kv">
+            <div class="page-kv__wrap">
+                <div>
+                    <h2>ブログ</h2>
+                    <p class="page-kv__text">
+                        日々の開発で得た知見や、技術的な発見をアウトプットしていきます。フロントエンド開発を中心に、実装のヒントやトラブルシューティング、新しい技術の検証結果など、実践的な情報を発信。エンジニアとしての成長の記録であり、同じ課題に直面する方々への導きとなることを目指しています。
+                    </p>
+                </div>
+                <h3 class="fp">BLOG</h3>
+            </div>
+        </div>
+        <div class="xl-inner">
+            <div class="blog-layout">
+                <main class="blog-main">
+                    <div class="blog__grid">
+                        {blogs.map((blog) => (
+                            <article class="blog__card">
+                                <a href={`/blog/${blog.id}`} class="blog__link">
+                                    <div class="blog__thumbnail">
+                                        {blog.thumbnail ? (
+                                            <img 
+                                                src={`${blog.thumbnail.url}?w=800`}
+                                                alt={blog.title}
+                                                width={400}
+                                                height={225}
+                                            />
+                                        ) : (
+                                            <div class="blog__thumbnail-placeholder">
+                                                No Image
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div class="blog__content">
+                                        <div class="blog__header">
+                                            <div class="blog__footer">
+                                                <time datetime={blog.publishedAt} class="blog__date">
+                                                    {new Date(blog.publishedAt).toLocaleDateString('ja-JP', {
+                                                        year: 'numeric',
+                                                        month: 'short',
+                                                        day: 'numeric'
+                                                    })}
+                                                </time>
+                                            </div>
+                                            {blog.categories && blog.categories.length > 0 && (
+                                                <div class="blog__categories">
+                                                    {blog.categories.map((category) => (
+                                                        <span class="blog__category">
+                                                            {category.name}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </div>
+                                        <h3 class="blog__title">{blog.title}</h3>
+                                    </div>
+                                </a>
+                            </article>
+                        ))}
+                    </div>
+
+                    {totalPages > 1 && (
+                        <nav class="pagination" aria-label="ページネーション">
+                            <ul class="pagination__list">
+                                {currentPage > 1 && (
+                                    <li>
+                                        <a 
+                                            href={currentPage === 2 ? "/blog" : `/blog/${currentPage - 1}`}
+                                            class="pagination__link pagination__prev"
+                                            rel="prev"
+                                        >
+                                            前へ
+                                        </a>
+                                    </li>
+                                )}
+
+                                {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+                                    <li>
+                                        <a 
+                                            href={pageNum === 1 ? "/blog" : `/blog/${pageNum}`}
+                                            class:list={[
+                                                'pagination__link',
+                                                { 'is-active': pageNum === currentPage }
+                                            ]}
+                                            aria-current={pageNum === currentPage ? 'page' : undefined}
+                                        >
+                                            {pageNum}
+                                        </a>
+                                    </li>
+                                ))}
+
+                                {currentPage < totalPages && (
+                                    <li>
+                                        <a 
+                                            href={`/blog/${currentPage + 1}`}
+                                            class="pagination__link pagination__next"
+                                            rel="next"
+                                        >
+                                            次へ
+                                        </a>
+                                    </li>
+                                )}
+                            </ul>
+                        </nav>
+                    )}
+                </main>
+                <BlogSidebar pageId={'blog'} />
+            </div>
+        </div>
+    </div>
+</Layout>
+
+<style lang="scss">
+  @import '../../styles/vars.scss';
+.blog-page {
+  padding: 8rem 0;
+
+  @include max-screen($bp-sp) {
+      padding: 4rem 0;
+  }
+
+  .blog-layout {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 4rem;
+
+      @media (max-width: 1024px) {
+          grid-template-columns: 1fr;
+      }
+  }
+}
+
+/* ブログセクション */
+.blog {
+  &__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 4rem;
+      margin-bottom: 5rem;
+  }
+  
+  &__card {
+      background-color: #000;
+      box-shadow: 0 0 0 3px #000;
+      border: 2px solid #fff;
+      border-radius: 5px;
+      transition: transform 0.3s ease;
+      
+      &:hover {
+          .blog__thumbnail img {
+              transform: scale(1.03);
+          }
+          .blog__title {
+              color: #dcb434; // ドラクエ風の金色
+          }
+      }
+  }
+  
+  &__thumbnail {
+      position: relative;
+      overflow: hidden;
+      background: #000;
+      aspect-ratio: 16/9;
+      
+      img {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.5s ease;
+      }
+
+      &-placeholder {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #fff;
+          font-size: 1.4rem;
+      }
+  }
+  
+  &__content {
+      padding: 1.5rem;
+  }
+  
+  &__categories {
+      display: flex;
+      gap: 0.5rem;
+  }
+  
+  &__category {
+      font-size: 1.3rem;
+      letter-spacing: 0.05em;
+      color: #dcb434;
+      border: 1px solid #dcb434;
+      padding: 0 0.75rem;
+  }
+
+  &__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+  }
+  
+  &__title {
+      font-size: 1.6rem;
+      margin-bottom: 0.75rem;
+      line-height: 1.4;
+      color: #fff;
+      transition: color 0.3s ease;
+  }
+  
+  &__excerpt {
+      font-size: 1.4rem;
+      line-height: 1.6;
+      color: #fff;
+      margin-bottom: 1rem;
+  }
+  
+  &__date {
+      font-size: 1.2rem;
+      color: #fff;
+      letter-spacing: 0.05em;
+  }
+}
+
+/* ページネーション */
+.pagination {
+  margin-top: 4rem;
+  margin-bottom: 8rem;
+
+  &__list {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      list-style: none;
+  }
+
+  &__link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 4rem;
+      height: 4rem;
+      border: 2px solid #fff;
+      background: #000;
+      color: #fff;
+      text-decoration: none;
+      font-size: 1.4rem;
+      transition: all 0.3s ease;
+      font-family: "PixelMplus12", monospace;
+
+      &:hover {
+          color: #dcb434;
+          border-color: #dcb434;
+      }
+
+      &.is-active {
+          background: #000;
+          color: #dcb434;
+          border-color: #dcb434;
+      }
+  }
+
+  &__prev,
+  &__next {
+      width: auto;
+      padding: 0 1.5rem;
+      position: relative;
+
+      &::before {
+          content: '▶';
+          position: absolute;
+          color: #dcb434;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+      }
+
+      &:hover::before {
+          opacity: 1;
+      }
+  }
+
+  &__prev::before {
+      left: 0.5rem;
+      transform: rotate(180deg);
+  }
+
+  &__next::before {
+      right: 0.5rem;
+  }
+}
+
+/* サイドバーのスタイル調整 */
+.sidebar {
+  .widget {
+      background: #000;
+      border: 2px solid #fff;
+      box-shadow: 0 0 0 3px #000;
+      border-radius: 5px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+      color: #fff;
+
+      h3 {
+          color: #dcb434;
+          font-size: 1.8rem;
+          margin-bottom: 1.5rem;
+          font-family: "PixelMplus12", monospace;
+      }
+
+      ul {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+
+          li {
+              margin-bottom: 1rem;
+              position: relative;
+              padding-left: 2rem;
+
+              &::before {
+                  content: '▶';
+                  position: absolute;
+                  left: 0;
+                  color: #dcb434;
+                  opacity: 0;
+                  transition: opacity 0.3s ease;
+              }
+
+              &:hover::before {
+                  opacity: 1;
+              }
+
+              a {
+                  color: #fff;
+                  text-decoration: none;
+                  font-size: 1.4rem;
+                  transition: color 0.3s ease;
+
+                  &:hover {
+                      color: #dcb434;
+                  }
+              }
+          }
+      }
+  }
+}
+
+@media (max-width: 768px) {
+  .blog {
+      &__grid {
+          grid-template-columns: 1fr;
+      }
+
+      &__title {
+          font-size: 1.4rem;
+      }
+
+      &__category {
+          font-size: 1.2rem;
+      }
+  }
+}
+</style>

@@ -3,27 +3,17 @@ import BlogSidebar from "../../components/BlogSidebar.astro";
 import Layout from "../../layouts/Layout.astro";
 import { getBlogs } from "../../lib/microcms";
 
-// ページネーション設定
 const PER_PAGE = 10;
-const currentPage = parseInt(Astro.url.searchParams.get('page') || '1');
-const offset = (currentPage - 1) * PER_PAGE;
-
-// データ取得を一度だけ行う
 const { contents: blogs, totalCount } = await getBlogs({
     limit: PER_PAGE,
-    offset: offset
+    offset: 0
 });
 
 const totalPages = Math.ceil(totalCount / PER_PAGE);
-
-
+const currentPage = 1;
 ---
 
-<Layout 
-    pageId='blog' 
-    title='ブログ一覧' 
-    description='技術ブログの一覧ページです'
->
+<Layout pageId='blog' title='ブログ一覧' description='技術ブログの一覧ページです'>
     <div class="blog-page blog">
         <div class="page-kv">
             <div class="page-kv__wrap">
@@ -39,105 +29,86 @@ const totalPages = Math.ceil(totalCount / PER_PAGE);
         <div class="xl-inner">
             <div class="blog-layout">
                 <main class="blog-main">
-                    <!-- <h1 class="page-title p-ttl">Blog</h1> -->
                     <div class="blog__grid">
                         {blogs.map((blog) => (
                             <article class="blog__card">
-                                    <a href={`/blog/${blog.id}`} class="blog__link">
-                                            <div class="blog__thumbnail">
-                                                    {blog.thumbnail ? (
-                                                            <img 
-                                                                    src={`${blog.thumbnail.url}?w=800`}
-                                                                    alt={blog.title}
-                                                                    width={400}
-                                                                    height={225}
-                                                            />
-                                                    ) : (
-                                                            <div class="blog__thumbnail-placeholder">
-                                                                    No Image
-                                                            </div>
-                                                    )}
+                                <a href={`/blog/${blog.id}`} class="blog__link">
+                                    <div class="blog__thumbnail">
+                                        {blog.thumbnail ? (
+                                            <img 
+                                                src={`${blog.thumbnail.url}?w=800`}
+                                                alt={blog.title}
+                                                width={400}
+                                                height={225}
+                                            />
+                                        ) : (
+                                            <div class="blog__thumbnail-placeholder">
+                                                No Image
                                             </div>
-                                            <div class="blog__content">
-                                                    <div class="blog__header">
-                                                        <div class="blog__footer">
-                                                                <time datetime={blog.publishedAt} class="blog__date">
-                                                                        {new Date(blog.publishedAt).toLocaleDateString('ja-JP', {
-                                                                                year: 'numeric',
-                                                                                month: 'short',
-                                                                                day: 'numeric'
-                                                                        })}
-                                                                </time>
-                                                        </div>
-                                                        {blog.categories && blog.categories.length > 0 && (
-                                                                <div class="blog__categories">
-                                                                        {blog.categories.map((category) => (
-                                                                                <span class="blog__category">
-                                                                                        {category.name}
-                                                                                </span>
-                                                                        ))}
-                                                                </div>
-                                                        )}
-                                                        
-
-                                                    </div>
-                                                    <h3 class="blog__title">{blog.title}</h3>
+                                        )}
+                                    </div>
+                                    <div class="blog__content">
+                                        <div class="blog__header">
+                                            <div class="blog__footer">
+                                                <time datetime={blog.publishedAt} class="blog__date">
+                                                    {new Date(blog.publishedAt).toLocaleDateString('ja-JP', {
+                                                        year: 'numeric',
+                                                        month: 'short',
+                                                        day: 'numeric'
+                                                    })}
+                                                </time>
                                             </div>
-                                    </a>
+                                            {blog.categories && blog.categories.length > 0 && (
+                                                <div class="blog__categories">
+                                                    {blog.categories.map((category) => (
+                                                        <span class="blog__category">
+                                                            {category.name}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </div>
+                                        <h3 class="blog__title">{blog.title}</h3>
+                                    </div>
+                                </a>
                             </article>
-                    ))}
+                        ))}
                     </div>
 
-                    <!-- ページネーション部分 -->
                     {totalPages > 1 && (
                         <nav class="pagination" aria-label="ページネーション">
-                                <ul class="pagination__list">
-                                        {currentPage > 1 && (
-                                                <li>
-                                                        <a 
-                                                                href={`/blog${currentPage === 2 ? '' : `?page=${currentPage - 1}`}`}
-                                                                class="pagination__link pagination__prev"
-                                                                rel="prev"
-                                                        >
-                                                                前へ
-                                                        </a>
-                                                </li>
-                                        )}
+                            <ul class="pagination__list">
+                                {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+                                    <li>
+                                        <a 
+                                            href={pageNum === 1 ? "/blog" : `/blog/${pageNum}`}
+                                            class:list={[
+                                                'pagination__link',
+                                                { 'is-active': pageNum === currentPage }
+                                            ]}
+                                            aria-current={pageNum === currentPage ? 'page' : undefined}
+                                        >
+                                            {pageNum}
+                                        </a>
+                                    </li>
+                                ))}
 
-                                        {[...Array(totalPages)].map((_, i) => {
-                                                const pageNum = i + 1;
-                                                return (
-                                                        <li>
-                                                                <a 
-                                                                        href={pageNum === 1 ? '/blog' : `/blog?page=${pageNum}`}
-                                                                        class:list={[
-                                                                                'pagination__link',
-                                                                                { 'is-active': pageNum === currentPage }
-                                                                        ]}
-                                                                        aria-current={pageNum === currentPage ? 'page' : undefined}
-                                                                >
-                                                                        {pageNum}
-                                                                </a>
-                                                        </li>
-                                                );
-                                        })}
-
-                                        {currentPage < totalPages && (
-                                                <li>
-                                                        <a 
-                                                                href={`/blog?page=${currentPage + 1}`}
-                                                                class="pagination__link pagination__next"
-                                                                rel="next"
-                                                        >
-                                                                次へ
-                                                        </a>
-                                                </li>
-                                        )}
-                                </ul>
+                                {currentPage < totalPages && (
+                                    <li>
+                                        <a 
+                                            href="/blog/2"
+                                            class="pagination__link pagination__next"
+                                            rel="next"
+                                        >
+                                            次へ
+                                        </a>
+                                    </li>
+                                )}
+                            </ul>
                         </nav>
                     )}
                 </main>
-                <BlogSidebar />
+                <BlogSidebar pageId={'blog'} />
             </div>
         </div>
     </div>

@@ -1,7 +1,7 @@
 ---
 import { getCategories, getBlogs } from '../lib/microcms';
 import TableOfContents from './TableOfContents.astro';
-const { content } = Astro.props;
+const { content, pageId } = Astro.props;
 const categories = await getCategories();
 
 // 人気記事を取得（例として最新5件を表示）
@@ -23,7 +23,9 @@ const { contents: popularPosts } = await getBlogs({
             </div>
         </div>
     </div>
-    <TableOfContents content={content} />
+    {pageId === 'blog-detail' && (
+        <TableOfContents content={content} />
+    )}
 </aside>
 
 <style lang="scss">
